@@ -19,13 +19,12 @@ const typeDefs = gql`
     description: String
     items: [Item]
     category: String
-    saleDate: String
+    startDate: String
     endDate: String
     location: String
     discount: Int
-    recurrence: Boolean
+    recurring: Boolean
     coordinates: [JSON]
-    active: Boolean
   }
 
   type Item {

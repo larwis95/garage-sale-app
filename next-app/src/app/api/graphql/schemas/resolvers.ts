@@ -1,4 +1,4 @@
-import { User } from "@/app/models";
+import { User, Sale } from "@/app/models";
 import { BaseContext } from "apollo-server-types";
 import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth";
 
