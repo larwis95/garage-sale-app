@@ -1,5 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { GraphQLError } from "graphql";
+import { NextRequest } from "next/server";
 
 interface iSignToken {
   username: string;
@@ -30,6 +31,13 @@ export const decodeToken = (token: string): JwtPayload | null => {
   } catch {
     return null;
   }
+};
+
+export const withAuth = async (
+  req: NextRequest
+): Promise<JwtPayload | null> => {
+  const token = req.headers.get("authorization") || "";
+  return decodeToken(token);
 };
 
 export const AuthenticationError = new GraphQLError(
