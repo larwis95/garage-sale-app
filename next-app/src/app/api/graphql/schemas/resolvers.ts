@@ -1,6 +1,6 @@
-import { User } from "../../../models";
+import { User } from "@/app/models";
 import { BaseContext } from "apollo-server-types";
-import { signToken, AuthenticationError } from "../../../libs/auth";
+import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth";
 
 interface IUserArgs {
   username?: string;
@@ -11,14 +11,17 @@ interface IUserArgs {
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate("thoughts");
+      return User.find();
     },
     user: async (parent: any, { username }: IUserArgs) => {
       return User.findOne({ username });
     },
     me: async (parent: any, args: IUserArgs, context: BaseContext) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id });
+      const token = context.req.headers.get("authorization");
+      console.log(token);
+      const user = decodeToken(token);
+      if (user) {
+        return User.findOne({ _id: user._id });
       }
       throw AuthenticationError;
     },
@@ -26,7 +29,6 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent: any, args: IUserArgs) => {
-      console.log(args);
       const user = await User.create(args);
       const token = signToken(user);
       return { token, user };

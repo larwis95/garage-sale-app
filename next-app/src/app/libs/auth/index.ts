@@ -4,6 +4,7 @@ import { GraphQLError } from "graphql";
 interface iSignToken {
   username: string;
   email: string;
+  _id: string;
 }
 
 const secret: string =
@@ -11,32 +12,24 @@ const secret: string =
 const expiration: string =
   process.env.NODE_ENV === "production" ? process.env.JWT_EXPIRATION! : "2h";
 
-export const signToken = ({ username, email }: iSignToken): string => {
-  const payload = { username, email };
+export const signToken = ({ username, email, _id }: iSignToken): string => {
+  const payload = { username, email, _id };
   return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 };
 
-export const authMiddleware = ({ req }: { req: any }) => {
-  let token = req.headers.authorization;
-
-  if (req.headers.authorization) {
-    token = token.split(" ").pop().trim();
-  }
-
+export const decodeToken = (token: string): JwtPayload | null => {
   if (!token) {
-    return req;
+    return null;
   }
 
   try {
     const { data }: JwtPayload = jwt.verify(token, secret, {
       maxAge: expiration,
     }) as JwtPayload;
-    req.user = data;
+    return data;
   } catch {
-    console.log("Invalid token");
+    return null;
   }
-  console.log(req);
-  return req;
 };
 
 export const AuthenticationError = new GraphQLError(
