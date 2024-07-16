@@ -87,7 +87,7 @@ export const GET_SALES = gql`
 
 export const GET_SALE = gql`
   query sale($id: ID!) {
-    sale(id: $id) {
+    sale(_id: $id) {
       _id
       title
       description
