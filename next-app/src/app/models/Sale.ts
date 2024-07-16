@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import ItemSchema from "./Item";
-import IItem from "./Item";
 
 export interface ISale extends mongoose.Document {
   title: string;
@@ -15,7 +13,7 @@ export interface ISale extends mongoose.Document {
     latitude: number;
     longitude: number;
   };
-  items: (typeof IItem)[];
+  items: [{ type: mongoose.Schema.Types.ObjectId; ref: "Item" }];
 }
 
 const SaleSchema = new mongoose.Schema({
@@ -26,11 +24,12 @@ const SaleSchema = new mongoose.Schema({
   location: { type: String, required: true },
   description: { type: String, required: true },
   recurring: { type: Boolean, required: false },
-  coordinates: {
-    latitude: { type: Number, required: true },
-    longitude: { type: Number, required: true },
-  },
-  items: [ItemSchema],
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Item",
+    },
+  ],
 });
 
 export default mongoose.models.Sale ||
