@@ -23,4 +23,5 @@ const ItemSchema = new mongoose.Schema({
   picture: { type: String, required: false },
 });
 
-export default ItemSchema;
+export default mongoose.models.Item ||
+  mongoose.model<IItem>("Item", ItemSchema);
