@@ -1,6 +1,10 @@
-import { User } from "@/app/models";
+import { User, Sale } from "@/app/models";
 import { BaseContext } from "apollo-server-types";
-import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth";
+import {
+  signToken,
+  AuthenticationError,
+  decodeToken,
+} from "@/app/libs/auth/backend";
 
 interface IUserArgs {
   username?: string;
@@ -17,9 +21,7 @@ const resolvers = {
       return User.findOne({ username });
     },
     me: async (parent: any, args: IUserArgs, context: BaseContext) => {
-      const token = context.req.headers.get("authorization");
-      console.log(token);
-      const user = decodeToken(token);
+      const user = context.user;
       if (user) {
         return User.findOne({ _id: user._id });
       }
