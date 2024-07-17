@@ -41,7 +41,7 @@ SaleSchema.pre("save", async function (next) {
     }
     const { lat, lng } = data.results[0].geometry.location;
     console.log(lat, lng);
-    this.geoLocation = { type: "Point", coordinates: [lat, lng] };
+    this.geoLocation = { type: "Point", coordinates: [lng, lat] };
   }
   next();
 });
