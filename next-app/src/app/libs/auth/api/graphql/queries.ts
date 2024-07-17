@@ -80,7 +80,6 @@ export const GET_SALES = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -108,7 +107,6 @@ export const GET_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -155,8 +153,8 @@ export const GET_COORDINATES = gql`
 `;
 
 export const GET_NEARBY_SALES = gql`
-  query nearbySales($coordinates: CoordinatesInput!, $radius: Int!) {
-    nearbySales(coordinates: $coordinates, radius: $radius) {
+  query nearBySales($coordinates: CoordinatesInput!, $radius: Int!) {
+    nearBySales(coordinates: $coordinates, radius: $radius) {
       _id
       title
       description
@@ -177,7 +175,10 @@ export const GET_NEARBY_SALES = gql`
       location
       discount
       recurring
-      coordinates
+      geoLocation {
+        type
+        coordinates
+      }
     }
   }
 `;
