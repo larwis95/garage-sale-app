@@ -14,9 +14,19 @@ const typeDefs = gql`
     picture: String
   }
 
+  input CoordinatesInput {
+    latitude: Float
+    longitude: Float
+  }
+
   type Coordinates {
     latitude: Float
     longitude: Float
+  }
+
+  type Location {
+    type: String
+    coordinates: [Float]
   }
 
   type User {
@@ -38,6 +48,7 @@ const typeDefs = gql`
     startDate: String
     endDate: String
     location: String
+    geoLocation: Location
     discount: Int
     recurring: Boolean
   }
@@ -69,6 +80,8 @@ const typeDefs = gql`
     item(_id: ID!): Item
     items: [Item]
     getCoordinates(location: String!): Coordinates
+    getSalesBySale(_id: ID!, radius: Int!): [Sale]
+    nearBySales(coordinates: CoordinatesInput!, radius: Int!): [Sale]
   }
 
   type Mutation {

@@ -44,6 +44,19 @@ const resolvers = {
       const { lat, lng } = data.results[0].geometry.location;
       return { latitude: lat, longitude: lng };
     },
+    nearBySales: async (parent: any, { coordinates, radius }: any) => {
+      return Sale.find({
+        geoLocation: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: [coordinates.latitude, coordinates.longitude],
+            },
+            $maxDistance: radius * 1609.34,
+          },
+        },
+      });
+    },
   },
 
   Mutation: {
@@ -71,10 +84,6 @@ const resolvers = {
     addSale: async (parent: any, args: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        const coordinates = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${args.location}&key=${process.env.GOOGLE_API_KEY}`);
-        const data = await coordinates.json();
-        const { lat, lng } = data.results[0].geometry.location;
-        args.location = JSON.stringify({ lat, lng });
         const sale = await Sale.create({ ...args, user: user._id });
         await User.findOneAndUpdate({ _id: user._id }, { $addToSet: { sales: sale._id } }, { new: true });
         return Sale.findOne({ _id: sale._id });
