@@ -1,10 +1,6 @@
 import { User, Sale, Item } from "@/app/models";
 import { BaseContext } from "apollo-server-types";
-import {
-  signToken,
-  AuthenticationError,
-  decodeToken,
-} from "@/app/libs/auth/backend";
+import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth/backend";
 
 interface IUserArgs {
   username?: string;
@@ -23,7 +19,7 @@ const resolvers = {
     me: async (parent: any, args: IUserArgs, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        return User.findOne({ _id: user._id });
+        return User.findOne({ _id: user._id }).populate("sales").populate("favorites");
       }
       throw AuthenticationError;
     },
@@ -38,6 +34,15 @@ const resolvers = {
     },
     items: async () => {
       return Item.find();
+    },
+    getCoordinates: async (parent: any, { location }: any) => {
+      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GOOGLE_API_KEY}`);
+      const data = await response.json();
+      if (!data || data.status === "ZERO_RESULTS") {
+        return { error: "No results found" };
+      }
+      const { lat, lng } = data.results[0].geometry.location;
+      return { latitude: lat, longitude: lng };
     },
   },
 
@@ -66,12 +71,12 @@ const resolvers = {
     addSale: async (parent: any, args: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
+        const coordinates = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${args.location}&key=${process.env.GOOGLE_API_KEY}`);
+        const data = await coordinates.json();
+        const { lat, lng } = data.results[0].geometry.location;
+        args.location = JSON.stringify({ lat, lng });
         const sale = await Sale.create({ ...args, user: user._id });
-        await User.findOneAndUpdate(
-          { _id: user._id },
-          { $addToSet: { sales: sale._id } },
-          { new: true }
-        );
+        await User.findOneAndUpdate({ _id: user._id }, { $addToSet: { sales: sale._id } }, { new: true });
         return Sale.findOne({ _id: sale._id });
       }
       throw AuthenticationError;
@@ -82,11 +87,7 @@ const resolvers = {
         const sale = await Sale.findOne({ _id });
         if (sale.user.toString() === user._id.toString()) {
           await Sale.deleteOne({ _id });
-          await User.updateOne(
-            { _id: user._id },
-            { $pull: { sales: _id } },
-            { new: true }
-          );
+          await User.updateOne({ _id: user._id }, { $pull: { sales: _id } }, { new: true });
           return sale;
         }
         throw AuthenticationError;
@@ -109,10 +110,7 @@ const resolvers = {
       const user = context.user;
       if (user) {
         const item = await Item.create({ ...args, user: user._id });
-        await Sale.updateOne(
-          { _id: args.sale },
-          { $addToSet: { items: item._id } }
-        );
+        await Sale.updateOne({ _id: args.sale }, { $addToSet: { items: item._id } });
         return Item.findOne({ _id: item._id });
       }
       throw AuthenticationError;
@@ -122,11 +120,7 @@ const resolvers = {
       if (user) {
         const item = await Item.findOne({ _id: args._id });
         if (item.user.toString() === user._id.toString()) {
-          const updatedItem = await Item.updateOne(
-            { _id: args._id },
-            { ...args },
-            { new: true }
-          );
+          const updatedItem = await Item.updateOne({ _id: args._id }, { ...args }, { new: true });
           return updatedItem;
         }
         throw AuthenticationError;
@@ -147,25 +141,15 @@ const resolvers = {
     addFavorite: async (parent: any, { saleId }: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        await User.updateOne(
-          { _id: user._id },
-          { $addToSet: { favorites: saleId } }
-        );
+        await User.updateOne({ _id: user._id }, { $addToSet: { favorites: saleId } });
         return User.findOne({ _id: user._id });
       }
       throw AuthenticationError;
     },
-    deleteFavorite: async (
-      parent: any,
-      { saleId }: any,
-      context: BaseContext
-    ) => {
+    deleteFavorite: async (parent: any, { saleId }: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        await User.updateOne(
-          { _id: user._id },
-          { $pull: { favorites: saleId } }
-        );
+        await User.updateOne({ _id: user._id }, { $pull: { favorites: saleId } });
         return User.findOne({ _id: user._id });
       }
       throw AuthenticationError;
