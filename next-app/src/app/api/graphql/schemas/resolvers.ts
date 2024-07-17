@@ -50,7 +50,7 @@ const resolvers = {
           $near: {
             $geometry: {
               type: "Point",
-              coordinates: [coordinates.latitude, coordinates.longitude],
+              coordinates: [coordinates.longitude, coordinates.latitude],
             },
             $maxDistance: radius * 1609.34,
           },
