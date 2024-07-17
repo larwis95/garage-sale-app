@@ -57,6 +57,15 @@ const resolvers = {
         },
       });
     },
+    userLocation: async (parent: any, { ip }: any) => {
+      try {
+        const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IP_GEOLOCATION_API_KEY}&ip=${ip}`);
+        const data = await response.json();
+        return { latitude: data.latitude, longitude: data.longitude };
+      } catch (e: any) {
+        return { error: e.message };
+      }
+    },
   },
 
   Mutation: {
