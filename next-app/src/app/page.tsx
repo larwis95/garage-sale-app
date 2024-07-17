@@ -1,5 +1,5 @@
 import Image from "next/image";
-import useUserLocation from "./api/hooks/useUserLocation";
+import useUserLocation from "./hooks/useUserLocation";
 
 export default async function Home() {
   const { latitude, longitude } = await useUserLocation();
