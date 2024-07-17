@@ -144,3 +144,12 @@ export const GET_ITEMS = gql`
     }
   }
 `;
+
+export const GET_COORDINATES = gql`
+  query coordinates {
+    coordinates {
+      latitude
+      longitude
+    }
+  }
+`;
