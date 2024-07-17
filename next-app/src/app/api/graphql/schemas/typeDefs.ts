@@ -82,6 +82,7 @@ const typeDefs = gql`
     getCoordinates(location: String!): Coordinates
     getSalesBySale(_id: ID!, radius: Int!): [Sale]
     nearBySales(coordinates: CoordinatesInput!, radius: Int!): [Sale]
+    userLocation(ip: String!): Coordinates
   }
 
   type Mutation {

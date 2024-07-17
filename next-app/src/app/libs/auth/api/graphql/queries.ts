@@ -153,3 +153,40 @@ export const GET_COORDINATES = gql`
     }
   }
 `;
+
+export const GET_NEARBY_SALES = gql`
+  query nearbySales($coordinates: CoordinatesInput!, $radius: Int!) {
+    nearbySales(coordinates: $coordinates, radius: $radius) {
+      _id
+      title
+      description
+      items {
+        _id
+        name
+        category
+        description
+        condition
+        price
+        quantity
+        discount
+        picture
+      }
+      category
+      startDate
+      endDate
+      location
+      discount
+      recurring
+      coordinates
+    }
+  }
+`;
+
+export const GET_USER_LOCATION = gql`
+  query userLocation($ip: String!) {
+    userLocation(ip: $ip) {
+      latitude
+      longitude
+    }
+  }
+`;
