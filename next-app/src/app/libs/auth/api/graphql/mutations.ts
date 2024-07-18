@@ -29,8 +29,26 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_SALE = gql`
-  mutation addSale($title: String!, $description: String!, $category: String!, $startDate: String!, $endDate: String!, $location: String!, $discount: Int!, $recurring: Boolean!, $coordinates: [JSON]!) {
-    addSale(title: $title, description: $description, category: $category, startDate: $startDate, endDate: $endDate, location: $location, discount: $discount, recurring: $recurring, coordinates: $coordinates) {
+  mutation addSale(
+    $title: String!
+    $description: String
+    $category: String
+    $startDate: String
+    $endDate: String
+    $location: String
+    $discount: Int
+    $recurring: Boolean
+  ) {
+    addSale(
+      title: $title
+      description: $description
+      category: $category
+      startDate: $startDate
+      endDate: $endDate
+      location: $location
+      discount: $discount
+      recurring: $recurring
+    ) {
       _id
       title
       description
@@ -40,7 +58,6 @@ export const ADD_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -57,14 +74,33 @@ export const DELETE_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
 
 export const UPDATE_SALE = gql`
-  mutation updateSale($_id: ID!, $title: String!, $description: String!, $category: String!, $startDate: String!, $endDate: String!, $location: String!, $discount: Int!, $recurring: Boolean!, $coordinates: [JSON]!) {
-    updateSale(_id: $_id, title: $title, description: $description, category: $category, startDate: $startDate, endDate: $endDate, location: $location, discount: $discount, recurring: $recurring, coordinates: $coordinates) {
+  mutation updateSale(
+    $_id: ID!
+    $title: String!
+    $description: String!
+    $category: String!
+    $startDate: String!
+    $endDate: String!
+    $location: String!
+    $discount: Int!
+    $recurring: Boolean!
+  ) {
+    updateSale(
+      _id: $_id
+      title: $title
+      description: $description
+      category: $category
+      startDate: $startDate
+      endDate: $endDate
+      location: $location
+      discount: $discount
+      recurring: $recurring
+    ) {
       _id
       title
       description
@@ -74,7 +110,6 @@ export const UPDATE_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -123,7 +158,6 @@ export const ADD_FAVORITE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -140,7 +174,6 @@ export const DELETE_FAVORITE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
