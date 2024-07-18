@@ -55,7 +55,7 @@ export default function Profile() {
     console.log(formState);
   }, [formState]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="h-screen text-center py-20 ">Loading...</p>;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,42 +69,57 @@ export default function Profile() {
   };
 
   return (
-    <div className="container py-20">
-      <div className="p-2 text-center">
-        <h2 className="text-xl">{data.me.username} profile</h2>
-      </div>
-      <div className="mx-auto max-w-sm">
-        <p>Your Email: {data.me.email}</p>
-        <p>Sales: </p>
-        {userSales.map((sale: ISale) => (
-          <div key={sale._id} className="mb-4">
-            <h3>{sale.title}</h3>
-            <p>{sale.description}</p>
-            <button onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>Edit</button>
-            <button
-              onClick={async () => {
-                await deleteSale({ variables: { _id: sale._id } });
-              }}
-            >
-              Delete
-            </button>
+    <div className="h-screen w-screen">
+      <div className="py-20">
+        <div className="text-center">
+          <h2 className="text-xl">{data.me.username} profile</h2>
+        </div>
+        
+        <div className="grid m-5">
+          <p className="py-2">Your Email: {data.me.email}</p>
+          <div className="container max-w-md my-2 rounded border-solid border-2 border-white">
+            <p className="m-2 p-2">Your Sales: </p>
+            {userSales.map((sale: ISale) => (
+              <div key={sale._id} className="p-2 m-2 rounded border-solid border-white border-2">
+                <h3 className="py-1">{sale.title}</h3>
+                <p className="py-1">{sale.description}</p>
+                <button 
+                  className="m-1 p-1 rounded bg-blue-500 hover:bg-blue-600"
+                  onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>Edit</button>
+                <button
+                  className="m-1 p-1 rounded bg-red-500 hover:bg-red-600"
+                  onClick={async () => {
+                    await deleteSale({ variables: { _id: sale._id } });
+                  }}
+                  >
+                  Delete
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
 
-        <p>Favorites: </p>
-        {data.me.favorites.map((favorite: iFavorite) => (
-          <div key={favorite._id} className="mb-4">
-            <h3>{favorite.title}</h3>
-            <p>{favorite.description}</p>
+          <div className="container my-2 border-solid border-2 border-white rounded">
+            <p className="m-2 p-2">Favorites: </p>
+            {data.me.favorites.map((favorite: iFavorite) => (
+              <div key={favorite._id} className="mb-4">
+                <h3>{favorite.title}</h3>
+                <p>{favorite.description}</p>
+              </div>
+            ))}
           </div>
-        ))}
 
-        <form onSubmit={handleSubmit} className="mt-4">
-          <input type="text" value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="mb-2 block w-full border p-2 text-black" />
-          <button type="submit" className="block w-full bg-blue-500 py-2 text-white">
-            {formState.saleId ? "Update Sale" : "Add Sale"}
-          </button>
-        </form>
+          <div className="container text-center my-2 py-2 border-solid border-2 border-white rounded">
+            <form onSubmit={handleSubmit} className="flex flex-col m-2">
+              <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} 
+                placeholder="Sale title" required 
+                className="py-2 m-2 border text-black rounded" />
+              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
+                {formState.saleId ? "Update Sale" : "Add Sale"}
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
