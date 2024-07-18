@@ -3,6 +3,7 @@ import NavLink from "./NavLink";
 import LogOutButton from "./LogOutButton";
 import { useState, useEffect, useRef } from "react";
 import HamburgerMenu from "./HamburgerMenu";
+import { AnimatePresence } from "framer-motion";
 
 const Links = [
   { href: "/", text: "Home" },
@@ -59,13 +60,11 @@ export default function Nav() {
             </button>
           )}
           {isOpened && (
-            <>
-              <button onClick={() => setIsOpened(!isOpened)} className="z-50 ml-3 mt-4 flex h-8 w-8 items-center justify-center rounded-full border border-white bg-black p-2 text-white transition duration-500 hover:scale-110 hover:border-red-700 hover:bg-slate-700 hover:text-red-500">
-                X
-              </button>
-              <HamburgerMenu />
-            </>
+            <button onClick={() => setIsOpened(!isOpened)} className="z-50 ml-3 mt-4 flex h-8 w-8 items-center justify-center rounded-full border border-white bg-black p-2 text-white transition duration-500 hover:scale-110 hover:border-red-700 hover:bg-slate-700 hover:text-red-500">
+              X
+            </button>
           )}
+          <AnimatePresence mode="wait">{isOpened && <HamburgerMenu />}</AnimatePresence>
         </nav>
       )}
     </header>
