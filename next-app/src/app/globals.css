@@ -19,6 +19,8 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(180deg, rgb(5, 5, 127) 0%, rgb(12, 12, 12) 100%);
+  background-image: url(./images/map.jpg);
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -37,6 +39,14 @@ body {
 
   .min-h-50svh {
     min-height: 50svh;
+  }
+  .min-w-1\/2 {
+    min-width: 50%;
+  }
+  @media (min-width: 640px) {
+    .sm\:min-w-1\/2 {
+      min-width: 50%;
+    }
   }
 }
 
@@ -69,7 +79,5 @@ body {
     transform: translateX(-100%);
   }
 }
-
-
 
 /* #map { height: em; } */

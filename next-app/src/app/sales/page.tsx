@@ -5,7 +5,7 @@ export default async function Sales() {
   const { latitude, longitude } = await useUserLocation();
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-around p-24">
+      <main className="flex min-h-screen flex-col items-center justify-around p-10">
         <SaleSection coordinates={{ latitude, longitude }} />
       </main>
     </>
