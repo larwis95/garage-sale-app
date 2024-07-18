@@ -1,6 +1,6 @@
-import { User, Sale } from "@/app/models";
+import { User, Sale, Item } from "@/app/models";
 import { BaseContext } from "apollo-server-types";
-import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth";
+import { signToken, AuthenticationError, decodeToken } from "@/app/libs/auth/backend";
 
 interface IUserArgs {
   username?: string;
@@ -14,16 +14,57 @@ const resolvers = {
       return User.find();
     },
     user: async (parent: any, { username }: IUserArgs) => {
-      return User.findOne({ username });
+      return User.findOne({ username }).populate("sales");
     },
     me: async (parent: any, args: IUserArgs, context: BaseContext) => {
-      const token = context.req.headers.get("authorization");
-      console.log(token);
-      const user = decodeToken(token);
+      const user = context.user;
       if (user) {
-        return User.findOne({ _id: user._id });
+        return User.findOne({ _id: user._id }).populate("sales").populate("favorites");
       }
       throw AuthenticationError;
+    },
+    sales: async () => {
+      return Sale.find();
+    },
+    sale: async (parent: any, { _id }: any) => {
+      return Sale.findOne({ _id }).populate("items");
+    },
+    item: async (parent: any, { _id }: any) => {
+      return Item.findOne({ _id });
+    },
+    items: async () => {
+      return Item.find();
+    },
+    getCoordinates: async (parent: any, { location }: any) => {
+      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GOOGLE_API_KEY}`);
+      const data = await response.json();
+      if (!data || data.status === "ZERO_RESULTS") {
+        return { error: "No results found" };
+      }
+      const { lat, lng } = data.results[0].geometry.location;
+      return { latitude: lat, longitude: lng };
+    },
+    nearBySales: async (parent: any, { coordinates, radius }: any) => {
+      return Sale.find({
+        geoLocation: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: [coordinates.longitude, coordinates.latitude],
+            },
+            $maxDistance: radius * 1609.34,
+          },
+        },
+      });
+    },
+    userLocation: async (parent: any, { ip }: any) => {
+      try {
+        const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IP_GEOLOCATION_API_KEY}&ip=${ip}`);
+        const data = await response.json();
+        return { latitude: data.latitude, longitude: data.longitude };
+      } catch (e: any) {
+        return { error: e.message };
+      }
     },
   },
 
@@ -48,6 +89,88 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addSale: async (parent: any, args: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const sale = await Sale.create({ ...args, user: user._id });
+        await User.findOneAndUpdate({ _id: user._id }, { $addToSet: { sales: sale._id } }, { new: true });
+        return Sale.findOne({ _id: sale._id });
+      }
+      throw AuthenticationError;
+    },
+    deleteSale: async (parent: any, { _id }: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const sale = await Sale.findOne({ _id });
+        if (sale.user.toString() === user._id.toString()) {
+          await Sale.deleteOne({ _id });
+          await User.updateOne({ _id: user._id }, { $pull: { sales: _id } }, { new: true });
+          return sale;
+        }
+        throw AuthenticationError;
+      }
+      throw AuthenticationError;
+    },
+    updateSale: async (parent: any, args: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const sale = await Sale.findOne({ _id: args._id });
+        if (sale.user.toString() === user._id.toString()) {
+          const updatedSale = Sale.updateOne({ _id: args._id }, { ...args });
+          return updatedSale;
+        }
+        throw AuthenticationError;
+      }
+      throw AuthenticationError;
+    },
+    addItem: async (parent: any, args: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const item = await Item.create({ ...args, user: user._id });
+        await Sale.updateOne({ _id: args.sale }, { $addToSet: { items: item._id } });
+        return Item.findOne({ _id: item._id });
+      }
+      throw AuthenticationError;
+    },
+    updateItem: async (parent: any, args: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const item = await Item.findOne({ _id: args._id });
+        if (item.user.toString() === user._id.toString()) {
+          const updatedItem = await Item.updateOne({ _id: args._id }, { ...args }, { new: true });
+          return updatedItem;
+        }
+        throw AuthenticationError;
+      }
+      throw AuthenticationError;
+    },
+    deleteItem: async (parent: any, { _id }: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        const item = await Item.findOne({ _id });
+        if (item.user.toString() === user._id.toString()) {
+          await Item.deleteOne({ _id });
+          return item;
+        }
+        throw AuthenticationError;
+      }
+    },
+    addFavorite: async (parent: any, { saleId }: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        await User.updateOne({ _id: user._id }, { $addToSet: { favorites: saleId } });
+        return User.findOne({ _id: user._id });
+      }
+      throw AuthenticationError;
+    },
+    deleteFavorite: async (parent: any, { saleId }: any, context: BaseContext) => {
+      const user = context.user;
+      if (user) {
+        await User.updateOne({ _id: user._id }, { $pull: { favorites: saleId } });
+        return User.findOne({ _id: user._id });
+      }
+      throw AuthenticationError;
     },
   },
 };
