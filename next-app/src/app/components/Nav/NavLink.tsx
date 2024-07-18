@@ -21,18 +21,18 @@ export default function NavLink({ href, loggedInOnly, loggedOutOnly, text }: INa
   return (
     <>
       {loggedInOnly && loggedIn && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-red-600" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-red-700 hover:bg-slate-700 hover:text-red-500`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-yellow-300" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-yellow-300 hover:bg-slate-700 hover:text-yellow-300`}>
           {text}
         </Link>
       )}
 
       {loggedOutOnly && !loggedIn && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-red-600" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-red-700 hover:bg-slate-700 hover:text-red-500`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-yellow-300" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-yellow-300 hover:bg-slate-700 hover:text-yellow-300`}>
           {text}
         </Link>
       )}
       {loggedInOnly === undefined && loggedOutOnly === undefined && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-red-600" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-red-700 hover:bg-slate-700 hover:text-red-500`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none bg-black text-yellow-300" : "bg-black text-white"} rounded-lg border border-white p-2 transition duration-500 hover:scale-105 hover:border-yellow-300 hover:bg-slate-700 hover:text-yellow-300`}>
           {text}
         </Link>
       )}
