@@ -41,43 +41,45 @@ export default function Profile() {
   };
 
   return (
-    <div className="container py-20">
-      <div className="text-center p-2">
-        <h2 className="text-xl">{data.me.username} profile</h2>
-      </div>
-      <div className="max-w-sm mx-auto">
-        <p>Your Email: {data.me.email}</p>
-        <p>Sales: </p>
-        {data.me.sales.map((sale) => (
-          <div key={sale._id} className="mb-4">
-            <h3>{sale.title}</h3>
-            <p>{sale.description}</p>
-            <button onClick={() => handleEdit(sale)}>Edit</button>
-            <button onClick={() => handleDelete(sale._id)}>Delete</button>
-          </div>
-        ))}
+    <div className='h-screen'>
+      <div className="container py-20">
+        <div className="text-center p-2">
+          <h2 className="text-xl">{data.me.username} profile</h2>
+        </div>
+        <div className="max-w-sm mx-auto">
+          <p>Your Email: {data.me.email}</p>
+          <p>Sales: </p>
+          {data.me.sales.map((sale) => (
+            <div key={sale._id} className="mb-4">
+              <h3>{sale.title}</h3>
+              <p>{sale.description}</p>
+              <button onClick={() => handleEdit(sale)}>Edit</button>
+              <button onClick={() => handleDelete(sale._id)}>Delete</button>
+            </div>
+          ))}
 
-        <p>Favorites: </p>
-        {data.me.favorites.map(favorite => (
-          <div key={favorite._id} className="mb-4">
-            <h3>{favorite.title}</h3>
-            <p>{favorite.description}</p>
-          </div>
-        ))}
+          <p>Favorites: </p>
+          {data.me.favorites.map(favorite => (
+            <div key={favorite._id} className="mb-4">
+              <h3>{favorite.title}</h3>
+              <p>{favorite.description}</p>
+            </div>
+          ))}
 
-        <form onSubmit={handleSubmit} className="mt-4">
-          <input
-            type="text"
-            value={formState.title}
-            onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-            placeholder="Sale title"
-            required
-            className="block w-full p-2 mb-2 border text-black"
-          />
-          <button type="submit" className="block w-full py-2 bg-blue-500 text-white">
-            {formState.id ? 'Update Sale' : 'Add Sale'}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit} className="mt-4">
+            <input
+              type="text"
+              value={formState.title}
+              onChange={(e) => setFormState({ ...formState, title: e.target.value })}
+              placeholder="Sale title"
+              required
+              className="block w-full p-2 mb-2 border text-black"
+            />
+            <button type="submit" className="block w-full py-2 bg-blue-500 text-white">
+              {formState.id ? 'Update Sale' : 'Add Sale'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
