@@ -28,7 +28,6 @@ export const GET_ME = gql`
         location
         discount
         recurring
-        coordinates
       }
       favorites {
         _id
@@ -51,7 +50,6 @@ export const GET_ME = gql`
         location
         discount
         recurring
-        coordinates
       }
     }
   }
