@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import SaleCard from "../Cards/Sales";
 import { useQuery } from "@apollo/client";
 import { GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/queries";
+import { AnimatePresence } from "framer-motion";
 
 interface ISaleSectionProps {
   coordinates: { latitude: number; longitude: number };
@@ -29,7 +30,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
 
   return (
     <>
-      <div className="h-50svw flex flex-col items-center justify-end align-bottom">
+      <div className="min-h-50svh align-center flex flex-col items-center justify-center">
         <input
           type="range"
           min={1}
@@ -48,11 +49,25 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
         <p>Search Radius: {sliderValue} miles.</p>
       </div>
       {loading && (
-        <div className="h-50svw flex w-full justify-center">
+        <div className="min-h-50svh flex w-full justify-center">
           <p>Loading...</p>
         </div>
       )}
-      {!loading && <div className="h-50svw flex w-full flex-row flex-wrap justify-center gap-4">{!data || (!data.nearBySales.length && !loading) ? <p>No sales found, try increasing the radius!</p> : data.nearBySales.map((sale: ISale) => <SaleCard key={sale._id} title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />)}</div>}
+      {!loading && (
+        <div className="min-h-50svh flex w-full flex-row flex-wrap justify-center gap-4">
+          {!data || (!data.nearBySales.length && !loading) ? (
+            <p>No sales found, try increasing the radius!</p>
+          ) : (
+            data.nearBySales.map((sale: ISale) => (
+              <>
+                <AnimatePresence mode="wait">
+                  <SaleCard key={sale._id} title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
+                </AnimatePresence>
+              </>
+            ))
+          )}
+        </div>
+      )}
     </>
   );
 }
