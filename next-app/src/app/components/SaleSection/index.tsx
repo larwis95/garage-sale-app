@@ -30,8 +30,9 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
 
   return (
     <>
-      <div className="min-h-50svh align-center flex flex-col items-center justify-center">
+      <div className="relative min-h-52 min-w-full">
         <input
+          className="top-30 absolute left-1/2 top-[95%] -translate-x-1/2 transform"
           type="range"
           min={1}
           max={100}
@@ -46,28 +47,19 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
             setRadius(sliderValue);
           }}
         />
-        <p>Search Radius: {sliderValue} miles.</p>
+        <p className="absolute left-1/2 top-[85%] -translate-x-1/2 transform text-nowrap">Search Radius: {sliderValue} miles.</p>
       </div>
-      {loading && (
-        <div className="min-h-50svh flex w-full justify-center">
-          <p>Loading...</p>
-        </div>
-      )}
-      {!loading && (
-        <div className="min-h-50svh flex w-full flex-row flex-wrap justify-center gap-4">
-          {!data || (!data.nearBySales.length && !loading) ? (
-            <p>No sales found, try increasing the radius!</p>
-          ) : (
-            data.nearBySales.map((sale: ISale) => (
-              <>
-                <AnimatePresence mode="wait">
-                  <SaleCard key={sale._id} title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
-                </AnimatePresence>
-              </>
-            ))
-          )}
-        </div>
-      )}
+      <div className="min-h-50svh flex w-svw flex-row flex-wrap items-center justify-center gap-4 p-4 sm:flex-col md:flex-row lg:w-svw lg:flex-row">
+        {!data || (!data.nearBySales.length && !loading) ? (
+          <p>No sales found, try increasing the radius!</p>
+        ) : (
+          data.nearBySales.map((sale: ISale) => (
+            <AnimatePresence mode="wait" key={sale._id}>
+              <SaleCard title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
+            </AnimatePresence>
+          ))
+        )}
+      </div>
     </>
   );
 }
