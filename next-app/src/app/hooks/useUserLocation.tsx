@@ -13,9 +13,10 @@ export default async function useUserLocation(): Promise<IUserLocation> {
   const client = getClient();
   const { data } = await client.query({
     query: GET_USER_LOCATION,
-    variables: { ip: ip === "::1" ? "8.8.8.8" : ip },
+    variables: { ip: "68.37.253.45" },
   });
   const { latitude, longitude } = data.userLocation;
-
   return { latitude, longitude };
 }
+//ORIGINAL VALUE
+//ip === "::1" ? "8.8.8.8" : ip
