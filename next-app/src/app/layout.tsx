@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { ApolloWrapper } from "./ApolloWrapper";
+import ApolloWrapper from "@/app/providers/Apollo";
+import NotificationProvider from "@/app/providers/Notification";
+import NotificationBox from "./components/Notifications";
 import Nav from "./components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +23,10 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ApolloWrapper>
           <Nav />
-          <div>{children}</div>
+          <NotificationProvider>
+            <div>{children}</div>
+            <NotificationBox />
+          </NotificationProvider>
         </ApolloWrapper>
       </body>
     </html>
