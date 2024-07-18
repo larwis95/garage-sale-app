@@ -1,9 +1,10 @@
 import HamburgerMenuLink from "./HamburgerMenuLink";
 import HamburgerMenuLogout from "./HamburgerMenuLogout";
+import { motion } from "framer-motion";
 
-export default function HamburgerMenu({ ref }: any) {
+export default function HamburgerMenu() {
   return (
-    <div className={`h-50svh w-50svw hamburger-menu absolute flex flex-col justify-start gap-2 rounded-r-lg border-b border-r border-t border-red-700 bg-slate-700 bg-opacity-65 p-2 align-middle backdrop-blur-sm`} ref={ref}>
+    <motion.div className={`h-50svh w-50svw absolute flex flex-col justify-start gap-2 rounded-r-lg border-b border-r border-t border-red-700 bg-slate-700 bg-opacity-65 p-2 align-middle backdrop-blur-sm`} initial={{ x: "-100vw" }} animate={{ x: 0 }} exit={{ x: "-100vw" }} transition={{ duration: 0.5 }}>
       <ul className="mt-12 flex flex-col">
         <HamburgerMenuLink href="/" text="Home" />
         <HamburgerMenuLink href="/sales" text="Sales" />
@@ -12,6 +13,6 @@ export default function HamburgerMenu({ ref }: any) {
         <HamburgerMenuLink href="/signup" text="Signup" loggedOutOnly />
         <HamburgerMenuLogout />
       </ul>
-    </div>
+    </motion.div>
   );
 }
