@@ -72,18 +72,18 @@ export default function Profile() {
     <div className="h-screen w-screen">
       <div className="py-20">
         <div className="text-center">
-          <h2 className="text-xl">{data.me.username} profile</h2>
+          <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
         </div>
-        
+
         <div className="grid m-5">
-          <p className="py-2">Your Email: {data.me.email}</p>
+          <p className="py-2 text-xl font-bold text-yellow-300 text-center">Your Email: {data.me.email}</p>
           <div className="container max-w-md my-2 rounded border-solid border-2 border-white">
-            <p className="m-2 p-2">Your Sales: </p>
+            <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
               <div key={sale._id} className="p-2 m-2 rounded border-solid border-white border-2">
-                <h3 className="py-1">{sale.title}</h3>
+                <h3 className="py-1 text-xl font-bold text-yellow-300">{sale.title}</h3>
                 <p className="py-1">{sale.description}</p>
-                <button 
+                <button
                   className="m-1 p-1 rounded bg-blue-500 hover:bg-blue-600"
                   onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>Edit</button>
                 <button
@@ -99,7 +99,7 @@ export default function Profile() {
           </div>
 
           <div className="container my-2 border-solid border-2 border-white rounded">
-            <p className="m-2 p-2">Favorites: </p>
+            <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
               <div key={favorite._id} className="mb-4">
                 <h3>{favorite.title}</h3>
@@ -110,9 +110,9 @@ export default function Profile() {
 
           <div className="container text-center my-2 py-2 border-solid border-2 border-white rounded">
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
-              <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} 
-                placeholder="Sale title" required 
+              <p className="py-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })}
+                placeholder="Sale title" required
                 className="py-2 m-2 border text-black rounded" />
               <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
