@@ -18,17 +18,55 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(180deg, rgb(5, 5, 127) 0%, rgb(12, 12, 12) 100%);
+  background-repeat: no-repeat;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .w-50svw {
+    width: 20svw;
+  }
+
+  .h-50svh {
+    height: 50svh;
+  }
+
+  .min-h-50svh {
+    min-height: 50svh;
+  }
+}
+
+.hamburger-menu {
+  animation: slide-in 0.5s linear;
+  transform-origin: left center;
+}
+
+.hamburger-menu-reverse {
+  animation: slide-out 0.5s linear reverse;
+  transform-origin: left center;
+}
+
+@keyframes slide-in {
+  from {
+    scale: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    scale: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out {
+  from {
+  }
+  to {
+    scale: 0;
+    transform: translateX(-100%);
   }
 }
 
