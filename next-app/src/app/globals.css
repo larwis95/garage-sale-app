@@ -38,6 +38,14 @@ body {
   .min-h-50svh {
     min-height: 50svh;
   }
+  .min-w-1\/2 {
+    min-width: 50%;
+  }
+  @media (min-width: 640px) {
+    .sm\:min-w-1\/2 {
+      min-width: 50%;
+    }
+  }
 }
 
 .hamburger-menu {
@@ -69,7 +77,5 @@ body {
     transform: translateX(-100%);
   }
 }
-
-
 
 /* #map { height: em; } */
