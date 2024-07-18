@@ -4,10 +4,8 @@ interface ISalesCardBodyProps {
 
 export default function SalesCardBody({ description }: ISalesCardBodyProps) {
   return (
-    <div className="flex flex-col justify-between p-2">
-      <div className="flex flex-col">
-        <p className="text-sm text-white">{description}</p>
-      </div>
+    <div className="flex h-full w-full flex-col items-start justify-around p-2">
+      <p className="text-md text-white">{description}</p>
     </div>
   );
 }
