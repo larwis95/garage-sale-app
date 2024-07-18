@@ -15,13 +15,13 @@ export interface ISale extends mongoose.Document {
 
 const SaleSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  category: { type: String, required: true },
-  startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
-  location: { type: String, required: true },
+  category: { type: String },
+  startDate: { type: Date },
+  endDate: { type: Date },
+  location: { type: String },
   geoLocation: { type: Object, index: "2dsphere", coordinates: [Number] },
-  description: { type: String, required: true },
-  recurring: { type: Boolean, required: false },
+  description: { type: String },
+  recurring: { type: Boolean },
   items: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -41,7 +41,7 @@ SaleSchema.pre("save", async function (next) {
     }
     const { lat, lng } = data.results[0].geometry.location;
     console.log(lat, lng);
-    this.geoLocation = { type: "Point", coordinates: [lat, lng] };
+    this.geoLocation = { type: "Point", coordinates: [lng, lat] };
   }
   next();
 });
