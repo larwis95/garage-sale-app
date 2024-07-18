@@ -1,4 +1,4 @@
-import { Spotter, Sale } from "@/app/components/lottie/Index";
+import { Spotter, Sale } from "@/app/components/lottie/index";
 
 import useUserLocation from "./hooks/useUserLocation";
 
