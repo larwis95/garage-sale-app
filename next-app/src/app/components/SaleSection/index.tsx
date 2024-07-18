@@ -21,32 +21,38 @@ interface ISale {
 }
 
 export default function SaleSection({ coordinates }: ISaleSectionProps) {
-  const sliderRef = useRef<HTMLInputElement>(null);
   const [radius, setRadius] = useState(10);
   const [sliderValue, setSliderValue] = useState(10);
-  const { data } = useQuery(GET_NEARBY_SALES, {
+  const { data, loading } = useQuery(GET_NEARBY_SALES, {
     variables: { coordinates, radius: radius },
   });
 
   return (
     <>
-      <div className="flex flex-col justify-center">
+      <div className="h-50svw flex flex-col items-center justify-end align-bottom">
         <input
           type="range"
           min={1}
           max={100}
           value={sliderValue}
-          ref={sliderRef}
           onChange={(e) => {
             setSliderValue(parseInt(e.target.value));
           }}
-          onMouseLeave={() => {
+          onMouseUp={() => {
+            setRadius(sliderValue);
+          }}
+          onTouchEnd={() => {
             setRadius(sliderValue);
           }}
         />
         <p>Search Radius: {sliderValue} miles.</p>
       </div>
-      <div className="flex flex-row flex-wrap justify-center gap-4">{!data || !data.nearBySales.length ? <p>No sales found</p> : data.nearBySales.map((sale: ISale) => <SaleCard key={sale._id} title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />)}</div>
+      {loading && (
+        <div className="h-50svw flex w-full justify-center">
+          <p>Loading...</p>
+        </div>
+      )}
+      {!loading && <div className="h-50svw flex w-full flex-row flex-wrap justify-center gap-4">{!data || (!data.nearBySales.length && !loading) ? <p>No sales found, try increasing the radius!</p> : data.nearBySales.map((sale: ISale) => <SaleCard key={sale._id} title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />)}</div>}
     </>
   );
 }
