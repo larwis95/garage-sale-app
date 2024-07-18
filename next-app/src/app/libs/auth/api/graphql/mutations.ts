@@ -115,27 +115,8 @@ export const UPDATE_SALE = gql`
 `;
 
 export const ADD_ITEM = gql`
-  mutation addItem(
-    $name: String!
-    $category: String!
-    $description: String!
-    $condition: Int!
-    $price: Float!
-    $quantity: Int!
-    $discount: Int!
-    $picture: String!
-    $sale: ID!
-  ) {
-    addItem(
-      name: $name
-      category: $category
-      description: $description
-      condition: $condition
-      price: $price
-      quantity: $quantity
-      discount: $discount
-      picture: $picture
-    ) {
+  mutation addItem($name: String!, $category: String!, $description: String!, $condition: Int!, $price: Float!, $quantity: Int!, $discount: Int!, $picture: String!, $sale: ID!) {
+    addItem(name: $name, category: $category, description: $description, condition: $condition, price: $price, quantity: $quantity, discount: $discount, picture: $picture) {
       _id
       name
       category
@@ -193,6 +174,22 @@ export const DELETE_FAVORITE = gql`
       location
       discount
       recurring
+    }
+  }
+`;
+
+export const UPDATE_ITEMS = gql`
+  mutation updateItems($items: [JSON]!) {
+    updateItems(items: $items) {
+      _id
+      name
+      category
+      description
+      condition
+      price
+      quantity
+      discount
+      picture
     }
   }
 `;
