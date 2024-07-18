@@ -93,7 +93,7 @@ const typeDefs = gql`
     addFavorite(saleId: ID!): User
     deleteFavorite(saleId: ID!): User
     updateSale(saleId: ID!, title: String, description: String, items: [ItemInput], category: String, startDate: String, endDate: String, location: String, discount: Int, recurring: Boolean): Sale
-    deleteSale(saleId: ID!): Sale
+    deleteSale(_id: ID!): Sale
     deleteItem(itemId: ID!): Item
     updateItem(itemId: ID!, name: String, category: String, description: String, condition: Int, price: Float, quantity: Int, discount: Int, picture: String): Item
   }
