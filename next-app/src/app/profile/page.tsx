@@ -14,6 +14,7 @@ export default function Profile() {
 
   const [updateSale] = useMutation(UPDATE_SALE, {
     onCompleted: () => refetch(),
+    variables: { id: formState.id }
   });
 
   const [deleteSale] = useMutation(DELETE_SALE, {
@@ -33,7 +34,7 @@ export default function Profile() {
   };
 
   const handleEdit = (sale) => {
-    setFormState({ title: sale.title, id: sale._id });
+    setFormState({ title: sale.title, id: sale.id });
   };
 
   const handleDelete = async (id) => {
@@ -53,8 +54,8 @@ export default function Profile() {
             <div key={sale._id} className="mb-4">
               <h3>{sale.title}</h3>
               <p>{sale.description}</p>
-              <button onClick={() => handleEdit(sale)}>Edit</button>
-              <button onClick={() => handleDelete(sale._id)}>Delete</button>
+              <button className= "m-2 p-2 bg-blue-500 text-white" onClick={() => handleEdit(sale)}>Edit</button>
+              <button className= "mx-auto p-2 bg-blue-500 text-white" onClick={() => handleDelete(sale._id)}>Delete</button>
             </div>
           ))}
 
