@@ -31,14 +31,13 @@ export const LOGIN_USER = gql`
 export const ADD_SALE = gql`
   mutation addSale(
     $title: String!
-    $description: String!
-    $category: String!
-    $startDate: String!
-    $endDate: String!
-    $location: String!
-    $discount: Int!
-    $recurring: Boolean!
-    $coordinates: [JSON]!
+    $description: String
+    $category: String
+    $startDate: String
+    $endDate: String
+    $location: String
+    $discount: Int
+    $recurring: Boolean
   ) {
     addSale(
       title: $title
@@ -49,7 +48,6 @@ export const ADD_SALE = gql`
       location: $location
       discount: $discount
       recurring: $recurring
-      coordinates: $coordinates
     ) {
       _id
       title
@@ -60,7 +58,6 @@ export const ADD_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -77,7 +74,6 @@ export const DELETE_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -93,7 +89,6 @@ export const UPDATE_SALE = gql`
     $location: String!
     $discount: Int!
     $recurring: Boolean!
-    $coordinates: [JSON]!
   ) {
     updateSale(
       _id: $_id
@@ -105,7 +100,6 @@ export const UPDATE_SALE = gql`
       location: $location
       discount: $discount
       recurring: $recurring
-      coordinates: $coordinates
     ) {
       _id
       title
@@ -116,7 +110,6 @@ export const UPDATE_SALE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -184,7 +177,6 @@ export const ADD_FAVORITE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
@@ -201,7 +193,6 @@ export const DELETE_FAVORITE = gql`
       location
       discount
       recurring
-      coordinates
     }
   }
 `;
