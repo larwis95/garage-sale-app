@@ -26,6 +26,6 @@ function makeClient() {
 }
 
 // you need to create a component to wrap your app in
-export function ApolloWrapper({ children }: React.PropsWithChildren) {
+export default function ApolloWrapper({ children }: React.PropsWithChildren) {
   return <ApolloNextAppProvider makeClient={makeClient}>{children}</ApolloNextAppProvider>;
 }
