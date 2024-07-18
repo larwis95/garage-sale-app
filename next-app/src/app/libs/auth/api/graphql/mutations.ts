@@ -29,28 +29,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_SALE = gql`
-  mutation addSale(
-    $title: String!
-    $description: String!
-    $category: String!
-    $startDate: String!
-    $endDate: String!
-    $location: String!
-    $discount: Int!
-    $recurring: Boolean!
-    $coordinates: [JSON]!
-  ) {
-    addSale(
-      title: $title
-      description: $description
-      category: $category
-      startDate: $startDate
-      endDate: $endDate
-      location: $location
-      discount: $discount
-      recurring: $recurring
-      coordinates: $coordinates
-    ) {
+  mutation addSale($title: String!, $description: String!, $category: String!, $startDate: String!, $endDate: String!, $location: String!, $discount: Int!, $recurring: Boolean!, $coordinates: [JSON]!) {
+    addSale(title: $title, description: $description, category: $category, startDate: $startDate, endDate: $endDate, location: $location, discount: $discount, recurring: $recurring, coordinates: $coordinates) {
       _id
       title
       description
@@ -83,30 +63,8 @@ export const DELETE_SALE = gql`
 `;
 
 export const UPDATE_SALE = gql`
-  mutation updateSale(
-    $_id: ID!
-    $title: String!
-    $description: String!
-    $category: String!
-    $startDate: String!
-    $endDate: String!
-    $location: String!
-    $discount: Int!
-    $recurring: Boolean!
-    $coordinates: [JSON]!
-  ) {
-    updateSale(
-      _id: $_id
-      title: $title
-      description: $description
-      category: $category
-      startDate: $startDate
-      endDate: $endDate
-      location: $location
-      discount: $discount
-      recurring: $recurring
-      coordinates: $coordinates
-    ) {
+  mutation updateSale($_id: ID!, $title: String!, $description: String!, $category: String!, $startDate: String!, $endDate: String!, $location: String!, $discount: Int!, $recurring: Boolean!, $coordinates: [JSON]!) {
+    updateSale(_id: $_id, title: $title, description: $description, category: $category, startDate: $startDate, endDate: $endDate, location: $location, discount: $discount, recurring: $recurring, coordinates: $coordinates) {
       _id
       title
       description
@@ -122,27 +80,8 @@ export const UPDATE_SALE = gql`
 `;
 
 export const ADD_ITEM = gql`
-  mutation addItem(
-    $name: String!
-    $category: String!
-    $description: String!
-    $condition: Int!
-    $price: Float!
-    $quantity: Int!
-    $discount: Int!
-    $picture: String!
-    $sale: ID!
-  ) {
-    addItem(
-      name: $name
-      category: $category
-      description: $description
-      condition: $condition
-      price: $price
-      quantity: $quantity
-      discount: $discount
-      picture: $picture
-    ) {
+  mutation addItem($name: String!, $category: String!, $description: String!, $condition: Int!, $price: Float!, $quantity: Int!, $discount: Int!, $picture: String!, $sale: ID!) {
+    addItem(name: $name, category: $category, description: $description, condition: $condition, price: $price, quantity: $quantity, discount: $discount, picture: $picture) {
       _id
       name
       category
@@ -202,6 +141,22 @@ export const DELETE_FAVORITE = gql`
       discount
       recurring
       coordinates
+    }
+  }
+`;
+
+export const UPDATE_ITEMS = gql`
+  mutation updateItems($items: [JSON]!) {
+    updateItems(items: $items) {
+      _id
+      name
+      category
+      description
+      condition
+      price
+      quantity
+      discount
+      picture
     }
   }
 `;
