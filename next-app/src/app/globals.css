@@ -18,12 +18,8 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-    180deg,
-    rgb(5, 5, 127) 0%,
-    rgb(12, 12, 12) 100%
-);
-background-repeat: no-repeat;
+  background: linear-gradient(180deg, rgb(5, 5, 127) 0%, rgb(12, 12, 12) 100%);
+  background-repeat: no-repeat;
 }
 
 @layer utilities {
@@ -37,6 +33,10 @@ background-repeat: no-repeat;
 
   .h-50svh {
     height: 50svh;
+  }
+
+  .min-h-50svh {
+    min-height: 50svh;
   }
 }
 
