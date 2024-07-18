@@ -49,24 +49,17 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
         />
         <p className="absolute left-1/2 top-[85%] -translate-x-1/2 transform text-nowrap">Search Radius: {sliderValue} miles.</p>
       </div>
-      {loading && (
-        <div className="min-h-50svh flex w-svw justify-center">
-          <p>Loading...</p>
-        </div>
-      )}
-      {!loading && (
-        <div className="min-h-50svh flex w-svw flex-row flex-wrap items-center justify-center gap-4 p-4 sm:flex-col md:flex-row lg:w-svw lg:flex-row">
-          {!data || (!data.nearBySales.length && !loading) ? (
-            <p>No sales found, try increasing the radius!</p>
-          ) : (
-            data.nearBySales.map((sale: ISale) => (
-              <AnimatePresence mode="wait" key={sale._id}>
-                <SaleCard title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
-              </AnimatePresence>
-            ))
-          )}
-        </div>
-      )}
+      <div className="min-h-50svh flex w-svw flex-row flex-wrap items-center justify-center gap-4 p-4 sm:flex-col md:flex-row lg:w-svw lg:flex-row">
+        {!data || (!data.nearBySales.length && !loading) ? (
+          <p>No sales found, try increasing the radius!</p>
+        ) : (
+          data.nearBySales.map((sale: ISale) => (
+            <AnimatePresence mode="wait" key={sale._id}>
+              <SaleCard title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
+            </AnimatePresence>
+          ))
+        )}
+      </div>
     </>
   );
 }
