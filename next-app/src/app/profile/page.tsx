@@ -82,7 +82,11 @@ export default function Profile() {
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
+<<<<<<< HEAD
+              <div key={sale._id} className="m-2 rounded border-2 border-solid border-white p-2">
+=======
               <div key={sale._id} className="rounded-lg border border-teal-500 bg-slate-700 p-2 m-1 min-h-fit max-h-fit">
+>>>>>>> main
                 <h3 className="py-1">Title: {sale.title}</h3>
                 <p className="py-1">Description: {sale.description}</p>
                 <div className="flex justify-end">
@@ -117,8 +121,13 @@ export default function Profile() {
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <form onSubmit={handleSubmit} className="m-2 flex flex-col">
               <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
+<<<<<<< HEAD
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="m-2 rounded border py-2 text-black" />
+              <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder="Sale description" required className="m-2 rounded border py-2 text-black" />
+=======
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder=" Sale title" required className="m-2 rounded border py-2 text-black" />
               <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder=" Sale description" required className="m-2 rounded border py-2 text-black" />
+>>>>>>> main
               <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white hover:bg-blue-600">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
