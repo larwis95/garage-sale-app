@@ -11,12 +11,18 @@ import { GET_COORDINATES, GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/q
 import { useQuery } from "@apollo/client";
 import { getClient } from "@/ApolloClient";
 
-
+import FetchUserLocation from "./Location";
+import {useState, useEffect} from 'react';
 
 
 interface IMapProps {
-  position?: LatLngExpression | LatLngTuple ,
-  zoom?: number
+  position?: LatLngExpression | LatLngTuple;
+  zoom?: number;
+  sales?: any;
+}
+interface Location {
+  latitude: number;
+  longitude: number;
 }
 
 // const client = getClient();
@@ -29,30 +35,67 @@ interface IMapProps {
 
 
 const defaults = {
-  position: {lat:42.3314,lng:-83.0458},
-  zoom: 15.8,
+  position: {lat:42.2048,lng:-83.4853},
+  zoom: 16,
 }
+
+const defaultSales =[
+  {
+    title: 'Egan\'s Pub',
+    geoLocation: { type:'type', index: '', coordinates:[ -83.4903,42.2083]},
+    location: '396 Main St, Belleville, MI 48111',
+    description: 'Egans is the go to place in the Belleville area for Irish fare',
+  }
+  // {name: 'Egan\s Pub', coords: { lat: 42.2083, lng: -83.4903 }}, //should be out of range
+  //   {name: 'Sam\'s Place', coords:{ lat: 42.2055, lng: -83.4861 }},
+  //   {name: 'A\&W', coords:{ lat: 42.2049, lng: -83.4865 }},
+  //   {name: 'Belleville Area Secretary of State', coords:{ lat: 42.2038, lng: -83.4822 }},
+  //   {name: 'Victory Park', coords:{ lat: 42.2048, lng: -83.4846 }},
+];
 
 const Map = (props: IMapProps) => {
 
-  const position = props.position===undefined ? defaults.position : props.position;
+  const [userLocation, setUserLocation] = useState<Location | null>(null);
+
+
+  useEffect(()=>{
+    const getUserLocation = async ()=>{
+      try {
+        const location = await FetchUserLocation();
+        setUserLocation(location);
+      } catch (error) {
+        console.error('Failed to set user location:', error);
+      }
+    };
+
+    getUserLocation();
+  });
+
+
+  //const position = props.position===undefined ? defaults.position : props.position;
+  const salesData = props.sales===undefined ? defaultSales : props.sales;
   const zoom = defaults.zoom;
 
+  if (!userLocation) {
+    return <p>Loading location...</p>;
+  }
+
+  const position = defaults.position;//{ lat: userLocation.latitude, lng: userLocation.longitude};
   console.log(position)
 
-  const positionArray =[
-    {name: 'Egan\s Pub', coords: { lat: 42.2083, lng: -83.4903 }}, //should be out of range
-    {name: 'Sam\'s Place', coords:{ lat: 42.2055, lng: -83.4861 }},
-    {name: 'A\&W', coords:{ lat: 42.2049, lng: -83.4865 }},
-    {name: 'Belleville Area Secretary of State', coords:{ lat: 42.2038, lng: -83.4822 }},
-    {name: 'Victory Park', coords:{ lat: 42.2048, lng: -83.4846 }},
-  ]
+  // const positionArray =[
+  //   {name: 'Egan\s Pub', coords: { lat: 42.2083, lng: -83.4903 }}, //should be out of range
+  //   {name: 'Sam\'s Place', coords:{ lat: 42.2055, lng: -83.4861 }},
+  //   {name: 'A\&W', coords:{ lat: 42.2049, lng: -83.4865 }},
+  //   {name: 'Belleville Area Secretary of State', coords:{ lat: 42.2038, lng: -83.4822 }},
+  //   {name: 'Victory Park', coords:{ lat: 42.2048, lng: -83.4846 }},
+  // ]
   return (
     <MapContainer
         center = {position}
         zoom = {zoom}
         scrollWheelZoom = {true}
-        style={ {height: "100%", width: "50%" }}
+        style={ {textAlign:"center", height: "100%", width: "100%" }}
     >
 
     <TileLayer
@@ -60,11 +103,11 @@ const Map = (props: IMapProps) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
 
-    {  positionArray.some(val => Object.keys(val).length != 0) && positionArray.map((val, idx)=>{
+    {  salesData && salesData.map((val, idx)=>{
         return(
-            <Marker key={idx} position = {val.coords}>
+            <Marker key={idx} position = {[val.geoLocation.coordinates[1],val.geoLocation.coordinates[0]]}>
                 <Popup>
-                    Index {idx}:  {val.name}
+                    <h2>{val.title}<br/>{val.location}</h2><p>{val.description}</p>
                 </Popup>
             </Marker>
             )
