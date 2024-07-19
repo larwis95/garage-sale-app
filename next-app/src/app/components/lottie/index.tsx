@@ -15,7 +15,7 @@ export function Treasure() {
 
 export function Sale() {
   return (
-    <div className="lottie-icon inline-block w-60 h-60">
+    <div className="lottie-icon inline-block w-72 h-72">
       <Lottie loop={true} animationData={sale2}></Lottie>
     </div>
   );

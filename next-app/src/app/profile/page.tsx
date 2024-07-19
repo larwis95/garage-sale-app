@@ -56,13 +56,13 @@ export default function Profile() {
     console.log(formState);
   }, [formState]);
 
-  if (loading) return <p className="h-screen text-center py-20 ">Loading...</p>;
+  if (loading) return <p className="h-screen py-20 text-center">Loading...</p>;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(formState);
     if (formState.saleId) {
-      await updateSale({ variables: {...formState} });
+      await updateSale({ variables: { ...formState } });
     } else {
       await addSale({ variables: { title: formState.title, description: formState.description } });
     }
@@ -73,38 +73,34 @@ export default function Profile() {
     <div className="h-screen w-screen">
       <div className="py-20">
         <div className="text-center">
-          <h2 className="font-extrabold text-white text-2xl">{data.me.username} profile</h2>
-          <p className="py-2">Your Email: {data.me.email}</p>
+          <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
         </div>
-        {/* Sales and Favorite container */}
-        <div className="flex flex-row m-5">
-          {/* Sales container */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
-            <p className="m-2 p-2">Your Sales </p>
+
+        <div className="m-5 grid">
+          <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
+          <div className="container my-2 max-w-md rounded border-2 border-solid border-white">
+            <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
-              <div key={sale._id} className="rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
-                <h3 className="py-1">Title: {sale.title}</h3>
-                <p className="py-1">Description: {sale.description}</p>
-                <div className="flex justify-end">
-                  <button 
-                    className="m-1 p-1 rounded bg-blue-500 hover:bg-blue-600"
-                    onClick={() => setFormState({ saleId: sale._id, title: sale.title, description: sale.description })}>Edit</button>
-                  <button
-                    className="m-1 p-1 rounded bg-red-500 hover:bg-red-600"
-                    onClick={async () => {
-                      await deleteSale({ variables: { _id: sale._id } });
-                    }}
-                    >
-                    Delete
-                  </button>
-                </div>
+              <div key={sale._id} className="m-2 rounded border-2 border-solid border-white p-2">
+                <h3 className="py-1 text-xl font-bold text-yellow-300">{sale.title}</h3>
+                <p className="py-1">{sale.description}</p>
+                <button className="m-1 rounded bg-blue-500 p-1 hover:bg-blue-600" onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>
+                  Edit
+                </button>
+                <button
+                  className="m-1 rounded bg-red-500 p-1 hover:bg-red-600"
+                  onClick={async () => {
+                    await deleteSale({ variables: { _id: sale._id } });
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             ))}
           </div>
-          {/* favorite container */}
-          {/* {data.me.favorites.length === 0 } */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
-            <p className="m-2 p-2">Favorites: </p>
+
+          <div className="container my-2 rounded border-2 border-solid border-white">
+            <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
               <div key={favorite._id} className="mb-4">
                 <h3>{favorite.title}</h3>
@@ -113,18 +109,13 @@ export default function Profile() {
             ))}
           </div>
         </div>
-          {/* add edit sales container */}
+        {/* add edit sales container */}
         <div className="flex justify-center">
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
-            <form onSubmit={handleSubmit} className="flex flex-col m-2">
-              <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-                placeholder=" Sale title" required 
-                className="py-2 m-2 text-black rounded-lg border border-teal-500" />
-              <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })}
-                placeholder=" Sale description" required 
-                className="py-2 m-2 text-black rounded-lg border border-teal-500" />
-              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
+            <form onSubmit={handleSubmit} className="m-2 flex flex-col">
+              <p className="py-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="m-2 rounded border py-2 text-black" />
+              <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white hover:bg-blue-600">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
             </form>
