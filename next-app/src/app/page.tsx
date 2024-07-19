@@ -11,7 +11,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-white">Sale Spotter</h1>
-        <p className="text-3xl font-bold text-black">Buy & Sell the Best Treasures Near You!</p>
+        <p className="text-3xl font-bold text-yellow-300 pt-2.5">Buy & Sell the Best Treasures Near You!</p>
 
         {/* <Sale />
         <Spotter /> */}
@@ -24,7 +24,7 @@ export default async function Home() {
       </div>
       <MapView />
 
-      <p className="text-3xl font-bold text-black">Your location:</p>
+      {/* <p className="text-3xl font-bold text-yellow-300">Your location:</p> */}
       <p>
         {latitude} {longitude}
       </p>

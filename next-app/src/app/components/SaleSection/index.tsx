@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/client";
 import { GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/queries";
 import { AnimatePresence } from "framer-motion";
 import  MapView  from "@/app/components/Map/index"
+import { Sale } from "@/app/components/lottie";
 
 interface ISaleSectionProps {
   coordinates: { latitude: number; longitude: number };
@@ -33,10 +34,11 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
   });
 
   return (
-    <>
-      <div className="relative min-h-52 min-w-full">
+    <div className="flex flex-col items-center justify-center h-screen">
+       <Sale />
+      <div className="w-full">
         <input
-          className="top-30 absolute left-1/2 top-[95%] -translate-x-1/2 transform"
+          className="w-full"
           type="range"
           min={1}
           max={100}
@@ -51,12 +53,12 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
             setRadius(sliderValue);
           }}
         />
-        <p className="absolute left-1/2 top-[85%] -translate-x-1/2 transform text-nowrap">Search Radius: {sliderValue} miles.</p>
+        <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {sliderValue} miles</p>
       </div>
-      <div className="min-h-50svh flex w-svw flex-row flex-wrap items-center justify-center gap-4 p-4 sm:flex-col md:flex-row lg:w-svw lg:flex-row">
+      <div className="flex flex-wrap items-center justify-center gap-4 p-4">
         {!data || (!data.nearBySales.length && !loading) ? (
           <>
-          <p>No sales found, try increasing the radius!</p>
+          <p className="text-xl font-bold text-yellow-300">No sales found, try increasing the search area!</p>
           <MapView  />
           </>
         ) : (
@@ -70,6 +72,6 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
