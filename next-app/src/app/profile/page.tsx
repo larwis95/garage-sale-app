@@ -77,12 +77,12 @@ export default function Profile() {
           <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
         </div>
         {/* Sales and Favorite container */}
-        <div className="flex flex-row m-5">
+        <div className="m-5 flex flex-row">
           {/* Sales container */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+          <div className="m-1 max-h-fit min-h-fit w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
-              <div key={sale._id} className="rounded-lg border border-teal-500 bg-slate-700 p-2 m-1 min-h-fit max-h-fit">
+              <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2">
                 <h3 className="py-1">Title: {sale.title}</h3>
                 <p className="py-1">Description: {sale.description}</p>
                 <div className="flex justify-end">
@@ -102,10 +102,10 @@ export default function Profile() {
             ))}
           </div>
           {/* favorite container */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+          <div className="m-1 max-h-fit min-h-fit w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
-              <div key={favorite._id} className="rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+              <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-600 p-4">
                 <h3>{favorite.title}</h3>
                 <p>{favorite.description}</p>
               </div>
