@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "../libs/auth/api/graphql/queries";
 import { ADD_SALE, UPDATE_SALE, DELETE_SALE } from "../libs/auth/api/graphql/mutations";
+import { motion } from "framer-motion";
 
 interface ISale {
   _id: string;
@@ -61,44 +62,48 @@ export default function Profile() {
     event.preventDefault();
     console.log(formState);
     if (formState.saleId) {
-      await updateSale({ variables: { saleId: formState.saleId, title: formState.title } });
+      await updateSale({ variables: {...formState} });
     } else {
-      await addSale({ variables: { title: formState.title } });
+      await addSale({ variables: { title: formState.title, description: formState.description } });
     }
-    setFormState({ title: "", saleId: null });
+    setFormState({ title: "", description: "", saleId: null });
   };
 
   return (
     <div className="h-screen w-screen">
       <div className="py-20">
         <div className="text-center">
-          <h2 className="text-xl">{data.me.username} profile</h2>
-        </div>
-        
-        <div className="grid m-5">
+          <h2 className="font-extrabold text-white text-2xl">{data.me.username} profile</h2>
           <p className="py-2">Your Email: {data.me.email}</p>
-          <div className="container max-w-md my-2 rounded border-solid border-2 border-white">
-            <p className="m-2 p-2">Your Sales: </p>
+        </div>
+        {/* Sales and Favorite container */}
+        <div className="flex flex-row m-5">
+          {/* Sales container */}
+          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+            <p className="m-2 p-2">Your Sales </p>
             {userSales.map((sale: ISale) => (
               <div key={sale._id} className="p-2 m-2 rounded border-solid border-white border-2">
-                <h3 className="py-1">{sale.title}</h3>
-                <p className="py-1">{sale.description}</p>
-                <button 
-                  className="m-1 p-1 rounded bg-blue-500 hover:bg-blue-600"
-                  onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>Edit</button>
-                <button
-                  className="m-1 p-1 rounded bg-red-500 hover:bg-red-600"
-                  onClick={async () => {
-                    await deleteSale({ variables: { _id: sale._id } });
-                  }}
-                  >
-                  Delete
-                </button>
+                <h3 className="py-1">Title: {sale.title}</h3>
+                <p className="py-1">Description: {sale.description}</p>
+                <div className="flex justify-end">
+                  <button 
+                    className="m-1 p-1 rounded bg-blue-500 hover:bg-blue-600"
+                    onClick={() => setFormState({ saleId: sale._id, title: sale.title, description: sale.description })}>Edit</button>
+                  <button
+                    className="m-1 p-1 rounded bg-red-500 hover:bg-red-600"
+                    onClick={async () => {
+                      await deleteSale({ variables: { _id: sale._id } });
+                    }}
+                    >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
-
-          <div className="container my-2 border-solid border-2 border-white rounded">
+          {/* favorite container */}
+          {/* {data.me.favorites.length === 0 } */}
+          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
             <p className="m-2 p-2">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
               <div key={favorite._id} className="mb-4">
@@ -107,12 +112,17 @@ export default function Profile() {
               </div>
             ))}
           </div>
-
-          <div className="container text-center my-2 py-2 border-solid border-2 border-white rounded">
+        </div>
+          {/* add edit sales container */}
+        <div className="flex justify-center">
+          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
               <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} 
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })}
                 placeholder="Sale title" required 
+                className="py-2 m-2 border text-black rounded" />
+              <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })}
+                placeholder="Sale description" required 
                 className="py-2 m-2 border text-black rounded" />
               <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
