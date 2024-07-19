@@ -4,6 +4,7 @@ import SaleCard from "../Cards/Sales";
 import { useQuery } from "@apollo/client";
 import { GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/queries";
 import { AnimatePresence } from "framer-motion";
+import  MapView  from "@/app/components/Map/index"
 
 interface ISaleSectionProps {
   coordinates: { latitude: number; longitude: number };
@@ -19,6 +20,9 @@ interface ISale {
   location: string;
   discount: number;
   recurring: boolean;
+  geoLocation: {
+    coordinates: number[]
+  };
 }
 
 export default function SaleSection({ coordinates }: ISaleSectionProps) {
@@ -51,13 +55,19 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
       </div>
       <div className="min-h-50svh flex w-svw flex-row flex-wrap items-center justify-center gap-4 p-4 sm:flex-col md:flex-row lg:w-svw lg:flex-row">
         {!data || (!data.nearBySales.length && !loading) ? (
+          <>
           <p>No sales found, try increasing the radius!</p>
+          <MapView  />
+          </>
         ) : (
-          data.nearBySales.map((sale: ISale) => (
+          <>
+          <MapView sales={data} />
+          {data.nearBySales.map((sale: ISale) => (
             <AnimatePresence mode="wait" key={sale._id}>
               <SaleCard title={sale.title} category={sale.category} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} discount={sale.discount} recurring={sale.recurring} _id={sale._id} />
             </AnimatePresence>
-          ))
+          ))}
+          </>
         )}
       </div>
     </>
