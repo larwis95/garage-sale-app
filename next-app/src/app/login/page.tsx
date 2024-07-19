@@ -10,7 +10,7 @@ import { Notification } from "../providers/Notification";
 export default function Login() {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const { notification, setNotification } = useContext(Notification);
+  const { setNotification } = useContext(Notification);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

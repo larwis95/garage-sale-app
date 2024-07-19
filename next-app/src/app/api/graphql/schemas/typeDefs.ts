@@ -89,12 +89,12 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addSale(title: String!, description: String, items: [ItemInput], category: String, startDate: String, endDate: String, location: String, discount: Int, recurring: Boolean): Sale
-    addItem(name: String!, category: String!, description: String!, condition: Int!, price: Float!, quantity: Int!, discount: Int!, picture: String!, sale: ID!): Item
+    addItem(name: String!, description: String!, price: Float!, quantity: Int!, sale: ID!): Item
     addFavorite(saleId: ID!): User
     deleteFavorite(saleId: ID!): User
     updateSale(saleId: ID!, title: String, description: String, items: [ItemInput], category: String, startDate: String, endDate: String, location: String, discount: Int, recurring: Boolean): Sale
     deleteSale(_id: ID!): Sale
-    deleteItem(itemId: ID!): Item
+    deleteItem(_id: ID!): Item
     updateItem(itemId: ID!, name: String, category: String, description: String, condition: Int, price: Float, quantity: Int, discount: Int, picture: String): Item
   }
 `;

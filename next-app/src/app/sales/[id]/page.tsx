@@ -1,19 +1,51 @@
-import { getClient } from "@/ApolloClient";
-import { GET_SALE } from "@/app/libs/auth/api/graphql/queries";
+"use client";
+import { useQuery } from "@apollo/client";
+import { GET_SALE, GET_ME } from "@/app/libs/auth/api/graphql/queries";
+import { useState, useEffect, useContext } from "react";
+import ownerContext from "@/app/providers/Owner";
+import SaleHeader from "@/app/components/SalesPageComponents/Header";
+import SaleBody from "@/app/components/SalesPageComponents/Body";
 
-export default async function Sale({ params }: { params: { id: string } }) {
-  const client = getClient();
-  const { data, loading } = await client.query({
-    query: GET_SALE,
+interface ISale {
+  _id: string;
+  title: string;
+  description: string;
+  items: {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
+}
+
+export default function Sale({ params }: { params: { id: string } }) {
+  const { data, loading } = useQuery(GET_SALE, {
     variables: { id: params.id },
   });
 
+  const sale = data?.sale || {};
+  const user = useQuery(GET_ME).data?.me || {};
+  const userSales = user?.sales || [];
+  console.log("userSales", user);
+  const userSale = userSales.filter((s: ISale) => s._id === params.id);
+  const isOwner = userSale[0]?._id === sale._id;
+
   if (loading) return <p>Loading...</p>;
 
+  if (!sale) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center">
+        <p>Sale Not Found</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>{data.sale.title}</h1>
-      <p>{data.sale.description}</p>
+    <div className="flex min-h-screen min-w-full flex-col items-center justify-center gap-4">
+      <ownerContext.Provider value={{ isOwner, sale: params.id }}>
+        <SaleHeader title={sale.title} description={sale.description} />
+        <SaleBody items={sale.items} />
+      </ownerContext.Provider>
     </div>
   );
 }

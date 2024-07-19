@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useMutation } from "@apollo/client";
+import { Notification } from "../providers/Notification";
 
 import Auth from "../libs/auth/frontend";
 
@@ -13,6 +14,7 @@ export default function Signup() {
     password: "",
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
+  const { setNotification } = useContext(Notification);
 
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,8 +23,9 @@ export default function Signup() {
         variables: { ...formState },
       });
       Auth.login(data.addUser.token);
-    } catch (e) {
-      console.error(e);
+      if (data.errors) throw new Error("An error occurred, check all required fields and try again");
+    } catch (e: any) {
+      setNotification({ message: e.message, type: "error" });
     }
   };
 
@@ -35,40 +38,29 @@ export default function Signup() {
   };
 
   return (
-    <div className="h-screen">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <div className="container py-20">
         <div className="text-center">
           <h2 className="font-extrabold text-white">SIGN UP</h2>
         </div>
 
-        <form onSubmit={handleFormSubmit} className="max-w-sm mx-auto">
-          <div className='mb-5'>
-            <label for='email' className="block mb-2 text-sm font-medium text-white dark:text-white">Username</label>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your username"
-            name="username"
-            type="text"
-            value={formState.username}
-            onChange={handleChange}/>
-          </div>
-          <div className='mb-5'>
-            <label for='password' className="block mb-2 text-sm font-medium text-white dark:text-white">Email</label>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your email"
-            name="email"
-            type="email"
-            value={formState.email}
-            onChange={handleChange}/>
+        <form className="mx-auto max-w-sm rounded-lg border border-teal-500 bg-slate-600 p-4" onSubmit={handleFormSubmit}>
+          <div className="mb-5">
+            <label className="mb-2 block text-sm font-medium text-white dark:text-white">Username</label>
+            <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Your username" name="username" type="text" value={formState.username} onChange={handleChange} />
           </div>
           <div className="mb-5">
-            <label className="block mb-2 text-sm font-medium text-white dark:text-white">Password</label>
-            <input className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="******"
-            name="password"
-            type="password"
-            value={formState.password}
-            onChange={handleChange} />
+            <label className="mb-2 block text-sm font-medium text-white dark:text-white">Email</label>
+            <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} />
           </div>
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Submit</button>
+          <div className="mb-5">
+            <label className="mb-2 block text-sm font-medium text-white dark:text-white">Password</label>
+            <input className="dark:shadow-sm-light block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
+          </div>
+          <button className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">
+            Submit
+          </button>
         </form>
-              
       </div>
     </div>
   );
