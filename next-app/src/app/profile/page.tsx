@@ -82,7 +82,7 @@ export default function Profile() {
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
             <p className="m-2 p-2">Your Sales </p>
             {userSales.map((sale: ISale) => (
-              <div key={sale._id} className="p-2 m-2 rounded border-solid border-white border-2">
+              <div key={sale._id} className="rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
                 <h3 className="py-1">Title: {sale.title}</h3>
                 <p className="py-1">Description: {sale.description}</p>
                 <div className="flex justify-end">
@@ -119,11 +119,11 @@ export default function Profile() {
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
               <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-                placeholder="Sale title" required 
-                className="py-2 m-2 border text-black rounded" />
+                placeholder=" Sale title" required 
+                className="py-2 m-2 text-black rounded-lg border border-teal-500" />
               <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })}
-                placeholder="Sale description" required 
-                className="py-2 m-2 border text-black rounded" />
+                placeholder=" Sale description" required 
+                className="py-2 m-2 text-black rounded-lg border border-teal-500" />
               <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
