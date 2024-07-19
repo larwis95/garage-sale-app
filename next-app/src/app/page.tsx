@@ -1,6 +1,8 @@
 import { Spotter, Sale, TreasureMap } from "@/app/components/lottie";
 
 import useUserLocation from "./hooks/useUserLocation";
+import MapView from "./components/Map";
+
 
 export default async function Home() {
   const { latitude, longitude } = await useUserLocation();
@@ -20,6 +22,7 @@ export default async function Home() {
       <div>
         <TreasureMap />
       </div>
+      <MapView />
 
       {/* <p className="text-3xl font-bold text-yellow-300">Your location:</p> */}
       <p>
