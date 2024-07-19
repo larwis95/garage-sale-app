@@ -80,4 +80,7 @@ body {
   }
 }
 
-/* #map { height: em; } */
+#map{
+  display: block;
+}
+
