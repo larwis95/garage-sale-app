@@ -7,7 +7,6 @@ export default async function Sales() {
   return (
     <>
       <main className="flex min-h-screen flex-col items-center  justify-around p-10">
-        {/* <Sale /> */}
         <SaleSection coordinates={{ latitude, longitude }} />
       </main>
     </>

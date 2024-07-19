@@ -82,19 +82,21 @@ export default function Profile() {
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
               <div key={sale._id} className="m-2 rounded border-2 border-solid border-white p-2">
-                <h3 className="py-1 text-xl font-bold text-yellow-300">{sale.title}</h3>
-                <p className="py-1">{sale.description}</p>
-                <button className="m-1 rounded bg-blue-500 p-1 hover:bg-blue-600" onClick={() => setFormState({ saleId: sale._id, title: sale.title })}>
-                  Edit
-                </button>
-                <button
-                  className="m-1 rounded bg-red-500 p-1 hover:bg-red-600"
-                  onClick={async () => {
-                    await deleteSale({ variables: { _id: sale._id } });
-                  }}
-                >
-                  Delete
-                </button>
+                <h3 className="py-1">Title: {sale.title}</h3>
+                <p className="py-1">Description: {sale.description}</p>
+                <div className="flex justify-end">
+                  <button className="m-1 rounded bg-blue-500 p-1 hover:bg-blue-600" onClick={() => setFormState({ saleId: sale._id, title: sale.title, description: sale.description })}>
+                    Edit
+                  </button>
+                  <button
+                    className="m-1 rounded bg-red-500 p-1 hover:bg-red-600"
+                    onClick={async () => {
+                      await deleteSale({ variables: { _id: sale._id } });
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -113,8 +115,9 @@ export default function Profile() {
         <div className="flex justify-center">
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <form onSubmit={handleSubmit} className="m-2 flex flex-col">
-              <p className="py-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
+              <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="m-2 rounded border py-2 text-black" />
+              <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder="Sale description" required className="m-2 rounded border py-2 text-black" />
               <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white hover:bg-blue-600">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
