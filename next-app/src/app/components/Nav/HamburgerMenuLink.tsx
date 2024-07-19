@@ -21,18 +21,18 @@ export default function HamburgerMenuLink({ href, loggedInOnly, loggedOutOnly, t
   return (
     <>
       {loggedInOnly && loggedIn && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none border-red-500 text-red-600" : "border-white hover:scale-105 hover:border-red-700 hover:text-red-500"} rounded-lg border-b transition duration-500 hover:border-r`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none border-yellow-300 text-yellow-300" : "border-white hover:scale-105 hover:border-yellow-300 hover:text-yellow-300"} rounded-lg border-b transition duration-500 hover:border-r`}>
           {text}
         </Link>
       )}
 
       {loggedOutOnly && !loggedIn && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none border-red-500 text-red-600" : "border-white hover:scale-105 hover:border-red-700 hover:text-red-500"} rounded-lg border-b transition duration-500 hover:border-r`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none border-yellow-300 text-yellow-300" : "border-white hover:scale-105 hover:border-yellow-300 hover:text-yellow-300"} rounded-lg border-b transition duration-500 hover:border-r`}>
           {text}
         </Link>
       )}
       {loggedInOnly === undefined && loggedOutOnly === undefined && (
-        <Link href={href} className={`${pathname === href ? "pointer-events-none border-red-500 text-red-600" : "border-white hover:scale-105 hover:border-red-700 hover:text-red-500"} rounded-lg border-b transition duration-500 hover:border-r`}>
+        <Link href={href} className={`${pathname === href ? "pointer-events-none border-yellow-300 text-yellow-300" : "border-white hover:scale-105 hover:border-yellow-300 hover:text-yellow-300"} rounded-lg border-b transition duration-500 hover:border-r`}>
           {text}
         </Link>
       )}

@@ -11,7 +11,7 @@ export default function LogOutButton() {
   return (
     <>
       {loggedIn && (
-        <a onClick={Auth.logout} className="cursor-pointer rounded-lg border border-white bg-black p-2 text-white transition duration-500 hover:scale-110 hover:border-red-700 hover:bg-slate-700 hover:text-red-500">
+        <a onClick={Auth.logout} className="cursor-pointer rounded-lg border border-white bg-black p-2 text-white transition duration-500 hover:scale-110 hover:border-yellow-300 hover:bg-slate-700 hover:text-yellow-300">
           Logout
         </a>
       )}
