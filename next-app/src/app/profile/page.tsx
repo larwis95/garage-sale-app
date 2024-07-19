@@ -77,16 +77,12 @@ export default function Profile() {
           <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
         </div>
         {/* Sales and Favorite container */}
-        <div className="flex flex-row m-5">
+        <div className="m-5 flex flex-row">
           {/* Sales container */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+          <div className="m-1 max-h-fit min-h-fit w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
-<<<<<<< HEAD
-              <div key={sale._id} className="m-2 rounded border-2 border-solid border-white p-2">
-=======
-              <div key={sale._id} className="rounded-lg border border-teal-500 bg-slate-700 p-2 m-1 min-h-fit max-h-fit">
->>>>>>> main
+              <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2">
                 <h3 className="py-1">Title: {sale.title}</h3>
                 <p className="py-1">Description: {sale.description}</p>
                 <div className="flex justify-end">
@@ -106,10 +102,10 @@ export default function Profile() {
             ))}
           </div>
           {/* favorite container */}
-          <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+          <div className="m-1 max-h-fit min-h-fit w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
-              <div key={favorite._id} className="rounded-lg border border-teal-500 bg-slate-600 p-4 m-1 min-h-fit max-h-fit">
+              <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-600 p-4">
                 <h3>{favorite.title}</h3>
                 <p>{favorite.description}</p>
               </div>
@@ -121,13 +117,8 @@ export default function Profile() {
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
             <form onSubmit={handleSubmit} className="m-2 flex flex-col">
               <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
-<<<<<<< HEAD
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="m-2 rounded border py-2 text-black" />
-              <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder="Sale description" required className="m-2 rounded border py-2 text-black" />
-=======
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder=" Sale title" required className="m-2 rounded border py-2 text-black" />
               <input type="text " value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder=" Sale description" required className="m-2 rounded border py-2 text-black" />
->>>>>>> main
               <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white hover:bg-blue-600">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
