@@ -77,8 +77,23 @@ export const UPDATE_SALE = gql`
 `;
 
 export const ADD_ITEM = gql`
-  mutation addItem($name: String!, $category: String!, $description: String!, $condition: Int!, $price: Float!, $quantity: Int!, $discount: Int!, $picture: String!, $sale: ID!) {
-    addItem(name: $name, category: $category, description: $description, condition: $condition, price: $price, quantity: $quantity, discount: $discount, picture: $picture) {
+  mutation addItem($name: String!, $description: String!, $price: Float!, $quantity: Int!, $sale: ID!) {
+    addItem(name: $name, description: $description, price: $price, quantity: $quantity, sale: $sale) {
+      _id
+      name
+      description
+      price
+      quantity
+      sale {
+        _id
+      }
+    }
+  }
+`;
+
+export const DELETE_ITEM = gql`
+  mutation deleteItem($_id: ID!) {
+    deleteItem(_id: $_id) {
       _id
       name
       category
@@ -92,9 +107,9 @@ export const ADD_ITEM = gql`
   }
 `;
 
-export const DELETE_ITEM = gql`
-  mutation deleteItem($_id: ID!) {
-    deleteItem(_id: $_id) {
+export const UPDATE_ITEM = gql`
+  mutation updateItem($_id: ID!, $name: String!, $category: String!, $description: String!, $condition: Int!, $price: Float!, $quantity: Int!, $discount: Int!, $picture: String!) {
+    updateItem(_id: $_id, name: $name, category: $category, description: $description, condition: $condition, price: $price, quantity: $quantity, discount: $discount, picture: $picture) {
       _id
       name
       category
