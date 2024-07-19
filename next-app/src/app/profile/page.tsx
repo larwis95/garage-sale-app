@@ -97,7 +97,6 @@ export default function Profile() {
                     Delete
                   </button>
                 </div>
->>>>>>> parent of 168ae31 (edit color border)
               </div>
             ))}
           </div>
@@ -115,12 +114,6 @@ export default function Profile() {
         {/* add edit sales container */}
         <div className="flex justify-center">
           <div className="w-1/2 rounded-lg border border-teal-500 bg-slate-600 p-4">
-<<<<<<< HEAD
-            <form onSubmit={handleSubmit} className="m-2 flex flex-col">
-              <p className="py-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="m-2 rounded border py-2 text-black" />
-              <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white hover:bg-blue-600">
-=======
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
               <p className="py-2 text-xl">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })}
@@ -130,7 +123,6 @@ export default function Profile() {
                 placeholder="Sale description" required
                 className="py-2 m-2 border text-black rounded" />
               <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded">
->>>>>>> parent of 168ae31 (edit color border)
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
             </form>
