@@ -30,8 +30,6 @@ const SaleSchema = new mongoose.Schema({
   ],
 });
 
-SaleSchema.index({ location: "2dsphere" });
-
 SaleSchema.pre("save", async function (next) {
   if (this.location) {
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.location}&key=${process.env.GOOGLE_API_KEY}`);
@@ -45,5 +43,7 @@ SaleSchema.pre("save", async function (next) {
   }
   next();
 });
+
+SaleSchema.index({ geoLocation: "2dsphere" });
 
 export default mongoose.models.Sale || mongoose.model<ISale>("Sale", SaleSchema);
