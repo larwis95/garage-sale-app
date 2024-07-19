@@ -21,10 +21,18 @@ const resolvers = {
     me: async (parent: any, args: IUserArgs, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        return User.findOne({ _id: user._id }).populate("sales").populate("favorites");
+        const userData = await User.findOne({ _id: user._id })
+          .populate({
+            path: "sales",
+            populate: { path: "items" },
+          })
+          .populate("favorites");
+        if (!userData) throw UserNotFound;
+        return userData;
       }
       throw AuthenticationError;
     },
+
     sales: async () => {
       const sales = await Sale.find().populate("items");
       if (!sales) throw SaleNotFound;
@@ -138,6 +146,7 @@ const resolvers = {
     },
     addItem: async (parent: any, args: any, context: BaseContext) => {
       const user = context.user;
+      console.log(user);
       if (user) {
         const item = await Item.create({ ...args, user: user._id });
         if (!item) throw ItemNotFound;
@@ -164,12 +173,10 @@ const resolvers = {
       if (user) {
         const item = await Item.findOne({ _id });
         if (!item) throw ItemNotFound;
-        if (item.user.toString() === user._id.toString()) {
-          await Item.deleteOne({ _id });
-          return item;
-        }
-        throw AuthenticationError;
+        await Item.deleteOne({ _id });
+        return item;
       }
+      throw AuthenticationError;
     },
     addFavorite: async (parent: any, { saleId }: any, context: BaseContext) => {
       const user = context.user;
