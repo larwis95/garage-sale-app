@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: process.env.NODE_ENV === "production" ? `https://${process.env.VERCEL_URL}/api/graphql` : "http://localhost:3000/api/graphql",
+    uri: process.env.NODE_ENV === "production" ? `https://${process.env.NEXT_PUBLIC_API_URL}/api/graphql` : "http://localhost:3000/api/graphql",
   });
 
   const authLink = setContext((_, { headers }) => {
