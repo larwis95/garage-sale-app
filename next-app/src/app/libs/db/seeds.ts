@@ -114,9 +114,16 @@ db.once("open", async () => {
       }
     }
 
+    // Map each sale to the user's favorite array
+    for (const user of createdUsers) {
+      user.favorites = createdSales.map((sale) => sale._id);
+      await user.save();
+    }
+
     console.log("Items seeded");
     console.log("Sales seeded");
     console.log("Users seeded");
+    console.log("Favorites seeded");
 
     process.exit(0);
   } catch (err) {
