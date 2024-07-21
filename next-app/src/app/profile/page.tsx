@@ -80,7 +80,7 @@ export default function Profile() {
   return (
     <div className="h-screen w-screen">
       <div className="py-20">
-        <div className="text-center">
+        <div className="mx-14 text-center max-h-fit min-h-fit w-11/12 rounded-lg border border-teal-500 bg-slate-600 p-4">
           <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
           <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
         </div>
