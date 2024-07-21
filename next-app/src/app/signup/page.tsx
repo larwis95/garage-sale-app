@@ -25,7 +25,11 @@ export default function Signup() {
       Auth.login(data.addUser.token);
       if (data.errors) throw new Error("An error occurred, check all required fields and try again");
     } catch (e: any) {
-      setNotification({ message: e.message, type: "error" });
+      if (e.message.includes("null")) {
+        setNotification({ message: "Please fill out all fields to sign up.", type: "error" });
+      } else {
+        setNotification({ message: e.message, type: "error" });
+      }
     }
   };
 

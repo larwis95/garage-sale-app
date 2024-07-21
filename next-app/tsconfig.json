@@ -21,6 +21,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "ts-node": {
+    "transpileOnly": true,
+    "esm": true,
+    "compilerOptions": {
+      "module": "nodenext"
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/libs/db/dbConnect.ts", "src/app/libs/db/seeds.ts", "ssrc/app/libs/db/cleanDB.ts"],
   "exclude": ["node_modules"]
 }

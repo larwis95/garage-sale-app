@@ -1,17 +1,18 @@
 import { Spotter, Sale, TreasureMap } from "@/app/components/lottie";
 
 import useUserLocation from "./hooks/useUserLocation";
+import useNearBySales from "./hooks/useNearBySales";
 import MapView from "./components/Map";
-
 
 export default async function Home() {
   const { latitude, longitude } = await useUserLocation();
+  const sales = await useNearBySales({ latitude, longitude }, 16);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-white">Sale Spotter</h1>
-        <p className="text-3xl font-bold text-yellow-300 pt-2.5">Buy & Sell the Best Treasures Near You!</p>
+        <p className="pt-2.5 text-3xl font-bold text-yellow-300">Buy & Sell the Best Treasures Near You!</p>
 
         {/* <Sale />
         <Spotter /> */}
@@ -22,7 +23,7 @@ export default async function Home() {
       <div>
         <TreasureMap />
       </div>
-      <MapView />
+      <MapView position={{ lat: latitude, lng: longitude }} sales={sales} zoom={16} />
 
       {/* <p className="text-3xl font-bold text-yellow-300">Your location:</p> */}
       <p>

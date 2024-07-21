@@ -14,42 +14,18 @@ export const GET_ME = gql`
         items {
           _id
           name
-          category
           description
-          condition
           price
           quantity
-          discount
-          picture
         }
-        category
         startDate
         endDate
         location
-        discount
-        recurring
       }
       favorites {
         _id
         title
         description
-        items {
-          _id
-          name
-          category
-          description
-          condition
-          price
-          quantity
-          discount
-          picture
-        }
-        category
-        startDate
-        endDate
-        location
-        discount
-        recurring
       }
     }
   }
@@ -64,20 +40,13 @@ export const GET_SALES = gql`
       items {
         _id
         name
-        category
         description
-        condition
         price
         quantity
-        discount
-        picture
       }
-      category
       startDate
       endDate
       location
-      discount
-      recurring
     }
   }
 `;
@@ -91,20 +60,13 @@ export const GET_SALE = gql`
       items {
         _id
         name
-        category
         description
-        condition
         price
         quantity
-        discount
-        picture
       }
-      category
       startDate
       endDate
       location
-      discount
-      recurring
     }
   }
 `;
@@ -114,13 +76,9 @@ export const GET_ITEM = gql`
     item(id: $id) {
       _id
       name
-      category
       description
-      condition
       price
       quantity
-      discount
-      picture
     }
   }
 `;
@@ -130,13 +88,9 @@ export const GET_ITEMS = gql`
     items {
       _id
       name
-      category
       description
-      condition
       price
       quantity
-      discount
-      picture
     }
   }
 `;
@@ -159,20 +113,13 @@ export const GET_NEARBY_SALES = gql`
       items {
         _id
         name
-        category
         description
-        condition
         price
         quantity
-        discount
-        picture
       }
-      category
       startDate
       endDate
       location
-      discount
-      recurring
       geoLocation {
         type
         coordinates
