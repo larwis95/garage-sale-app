@@ -1,57 +1,40 @@
+"use client";
 import dynamic from "next/dynamic";
-import {useMemo, useState, useEffect} from "react";
-//import useUserLocation from "@/app/hooks/useUserLocation";
-import { GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/queries";
-import { getClient } from "@/ApolloClient";
-import { LatLngExpression, LatLngTuple } from "leaflet";
-import FetchUserLocation from "./Location"
+import { useMemo } from "react";
+import useUserLocation from "@/app/hooks/useUserLocation";
+import { GET_NEARBY_SALES, GET_USER_LOCATION } from "@/app/libs/auth/api/graphql/queries";
+import { useQuery } from "@apollo/client";
 
-interface IMapValues{
-  sales?: any;
+interface ISale {
+  _id: string;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  geoLocation: {
+    coordinates: number[];
+  };
 }
-// interface Location {
-//   latitude: number;
-//   longitude: number;
-// }
-  // title: string;
-  // category: string;
-  // startDate: Date;
-  // endDate: Date;
-  // location: string;
-  // geoLocation: { type: string; index?: string; coordinates: [number, number] };
-  // description: string;
-  // discount: number;
-  // recurring: boolean;
-  // items:
+interface IMapValues {
+  sales: ISale[];
+  zoom?: number;
+  position: { lat: number; lng: number };
+}
 
+export default function MapView(props: IMapValues) {
+  const { sales, zoom, position } = props;
+  const { data, loading } = useQuery(GET_USER_LOCATION);
+  const userLocation = data?.userLocation || {};
+  const { lat, lng } = position;
 
-
-
-export default function MapView(props: IMapValues ) {
-  const salesArray = props.sales;
-  // const [userLocation, setUserLocation] = useState<Location | null>(null);
-
-
-  // useEffect(()=>{
-  //   const getUserLocation = async ()=>{
-  //     try {
-  //       const location = await FetchUserLocation();
-  //       setUserLocation(location);
-  //     } catch (error) {
-  //       console.error('Failed to set user location:', error);
-  //     }
-  //   };
-
-  //   getUserLocation();
-  // });
-
-  //const client = getClient();
-  const Map = useMemo(()=>dynamic(
-    ()=> import('@/app/components/Map/Map'),
-    {
-      loading: ()=> <p>Please wait. Map is loading.</p>,
-      ssr: false
-    }),[]
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("@/app/components/Map/Map"), {
+        loading: () => <p>Please wait. Map is loading.</p>,
+        ssr: false,
+      }),
+    [],
   );
 
   // if (!userLocation) {
@@ -59,11 +42,10 @@ export default function MapView(props: IMapValues ) {
   // }
   //const userLocation = await useUserLocation().then((data)=>{ return data; });
 
-
   return (
-      <div id="map" className="bg-white-700 mx-auto my-5 w-[50%] h-[480px]">
-        <Map  sales={salesArray} />
-      </div>
+    <div id="map" className="bg-white-700 mx-auto my-5 h-[480px] w-full">
+      <Map sales={sales} zoom={zoom} position={position} />
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
-import { ADD_ITEM } from "@/app/libs/auth/api/graphql/mutations";
+import { UPDATE_ITEM } from "@/app/libs/auth/api/graphql/mutations";
 import { GET_ME } from "@/app/libs/auth/api/graphql/queries";
 import { useMutation } from "@apollo/client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useContext, forwardRef } from "react";
 import { Notification } from "@/app/providers/Notification";
 import ownerContext from "@/app/providers/Owner";
@@ -14,42 +14,56 @@ interface formState {
   sale: string | null;
 }
 
-interface IAddItemModal {
+interface IEditItemModal {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  item: {
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    description: string;
+  };
 }
 
-const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemModal({ setIsOpen }, ref) {
+const EditItemModal = forwardRef<HTMLDivElement, IEditItemModal>(function EditItemModal({ setIsOpen, item }, ref) {
   const { sale } = useContext(ownerContext);
-  const [addItem] = useMutation(ADD_ITEM, {
+  const [updateItem] = useMutation(UPDATE_ITEM, {
     refetchQueries: [{ query: GET_ME }],
   });
 
-  const [formState, setFormState] = useState<formState>({ name: "", price: "", quantity: "", description: "", sale });
+  const [formState, setFormState] = useState<formState>({
+    sale,
+    name: item.name,
+    price: item.price,
+    description: item.description,
+    quantity: item.quantity,
+  });
 
   const { setNotification } = useContext(Notification);
 
-  const handleAddItem = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdateItem = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formState);
     if (!formState.name || !formState.price || !formState.quantity) {
       setNotification({
-        message: "Please fill all fields",
+        message: "Please fill out at least one field",
         type: "error",
       });
       return;
     }
     try {
-      const { data } = await addItem({
+      const { data } = await updateItem({
         variables: {
           ...formState,
+          _id: item._id,
         },
       });
 
       if (data.errors) {
-        throw new Error("Error adding item");
+        throw new Error("Error updating item");
       } else {
         setNotification({
-          message: "Item added successfully",
+          message: "Item updated successfully",
           type: "success",
         });
         setFormState({ sale: null, name: "", price: "", description: "", quantity: "" });
@@ -58,7 +72,7 @@ const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemM
       }
     } catch (error) {
       setNotification({
-        message: "Error adding item",
+        message: "Error updating item",
         type: "error",
       });
     }
@@ -66,12 +80,14 @@ const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemM
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.0, type: "tween" }} className="fixed left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-      <motion.div initial={{ x: "-100vw" }} animate={{ x: 0 }} exit={{ x: "-100vw" }} transition={{ duration: 0.8, delay: 0.2, type: "tween" }} className="relative z-50 flex flex-col items-center justify-center gap-4 rounded-lg border border-yellow-300 bg-slate-600 bg-opacity-55 p-6 backdrop-blur-md" ref={ref}>
+      <motion.div initial={{ y: "100vh" }} animate={{ y: 0 }} exit={{ y: "90vh" }} transition={{ duration: 0.8, delay: 0.2, type: "tween" }} className="relative z-50 flex flex-col items-center justify-center gap-4 rounded-lg border border-yellow-300 bg-slate-600 bg-opacity-55 p-6 backdrop-blur-md" ref={ref}>
         <div className="absolute right-0 top-0 p-2">
           <button
             onClick={() => {
               setIsOpen(false);
-              document.body.style.overflow = "auto";
+              setTimeout(() => {
+                document.body.style.overflow = "auto";
+              }, 1100);
             }}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500 p-2 text-center text-white transition duration-500 hover:scale-105 hover:bg-red-700"
           >
@@ -80,7 +96,7 @@ const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemM
         </div>
         <div className="flex flex-col items-center justify-center gap-4">
           <h2 className="text-4xl text-yellow-300">Add Item</h2>
-          <form className="flex flex-col gap-2" onSubmit={handleAddItem}>
+          <form className="flex flex-col gap-2" onSubmit={handleUpdateItem}>
             <div className="flex flex-col gap-2">
               <label htmlFor="name" className="text-white">
                 Name
@@ -106,7 +122,7 @@ const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemM
               <textarea id="description" value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} className="rounded-lg border border-yellow-300 bg-slate-600 p-2 text-white transition duration-500 focus:border-white focus:bg-slate-400 focus:outline-none" />
             </div>
             <button type="submit" className="rounded-lg border border-yellow-300 bg-blue-500 p-2 text-yellow-300 transition duration-500 hover:scale-105 hover:bg-blue-700 hover:text-white">
-              Add Item
+              Update Item
             </button>
           </form>
         </div>
@@ -115,4 +131,4 @@ const AddItemModal = forwardRef<HTMLDivElement, IAddItemModal>(function AddItemM
   );
 });
 
-export default AddItemModal;
+export default EditItemModal;

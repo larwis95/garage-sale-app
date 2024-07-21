@@ -26,22 +26,21 @@ export default function Sale({ params }: { params: { id: string } }) {
   const sale = data?.sale || {};
   const user = useQuery(GET_ME).data?.me || {};
   const userSales = user?.sales || [];
-  console.log("userSales", user);
   const userSale = userSales.filter((s: ISale) => s._id === params.id);
   const isOwner = userSale[0]?._id === sale._id;
 
   if (loading) return <p>Loading...</p>;
 
-  if (!sale) {
+  if (!sale._id) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
+      <div className="flex h-screen w-screen flex-col items-center justify-center">
         <p>Sale Not Found</p>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen min-w-full flex-col items-center justify-center gap-4">
+    <div className="min-w-screen flex min-h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden">
       <ownerContext.Provider value={{ isOwner, sale: params.id }}>
         <SaleHeader title={sale.title} description={sale.description} />
         <SaleBody items={sale.items} />
