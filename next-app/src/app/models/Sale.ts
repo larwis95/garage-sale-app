@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import SEED_API_KEY from "../../../seedApi";
+import SEED_API_KEY from "../../../seedsApi";
 
 export interface ISale extends mongoose.Document {
   title: string;
