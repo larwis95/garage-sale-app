@@ -3,12 +3,9 @@ import mongoose from "mongoose";
 export interface IItem extends mongoose.Document {
   name: string;
   description: string;
-  category: string;
-  condition: number;
   price: number;
   quantity: number;
   discount: number;
-  picture: string;
 }
 
 const ItemSchema = new mongoose.Schema({
