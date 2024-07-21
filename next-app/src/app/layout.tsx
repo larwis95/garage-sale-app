@@ -6,7 +6,6 @@ import ApolloWrapper from "@/app/providers/Apollo";
 import NotificationProvider from "@/app/providers/Notification";
 import NotificationBox from "./components/Notifications";
 import Nav from "./components/Nav";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 const inter = Inter({ subsets: ["latin"] });
 

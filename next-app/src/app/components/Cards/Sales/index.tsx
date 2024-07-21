@@ -6,22 +6,19 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface ISalesCardProps {
   title: string;
-  category: string;
   startDate: string;
   endDate: string;
   location: string;
   description: string;
-  discount: number;
-  recurring: boolean;
   _id: string;
 }
 
-export default function SalesCard({ title, category, startDate, endDate, location, description, discount, recurring, _id }: ISalesCardProps) {
+export default function SalesCard({ title, startDate, endDate, location, description, _id }: ISalesCardProps) {
   return (
     <motion.div className="relative flex w-full flex-col justify-around rounded-lg border border-white bg-slate-800 shadow-md lg:w-1/6" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ duration: 0.5 }}>
       <SalesHeader title={title} startDate={startDate} endDate={endDate} />
       <SalesBody description={description} />
-      <SalesFooter discount={discount} location={location} _id={_id} />
+      <SalesFooter location={location} _id={_id} />
     </motion.div>
   );
 }
