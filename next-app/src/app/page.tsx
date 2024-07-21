@@ -23,12 +23,7 @@ export default async function Home() {
       <div>
         <TreasureMap />
       </div>
-<<<<<<< HEAD
       <MapView position={{ lat: latitude, lng: longitude }} sales={sales} zoom={16} />
-=======
-        <p className="left-0 top-0 flex w-1/2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">The old adage one man’s trash is another man’s treasure still holds true today whether looking for a unique piece or making some cash instead of throwing things away. Whether it’s Garage or Yard, Moving or Estate list your sale to be starred and let your item find it’s mate!  Make some cash and get it done and let the customers come to you, Sale Spotter lists them all and does it location based too. So when searching for that item (coffee table or lawn gnome) you can choose where to search or just do it close to home. So Click on Sales or Sign Up and you will be on your way to finding treasures or selling things and making cash today!</p>
-      <MapView />
->>>>>>> main
 
       {/* <p className="text-3xl font-bold text-yellow-300">Your location:</p> */}
       <p>
