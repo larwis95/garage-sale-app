@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   async rewrites() {
+    if (process.env.NODE_ENV === "production") return [];
     return [
       {
         source: `/api/graphql`,
-        destination: process.env.NODE_ENV === "production" ? "https://127.0.0.1:3001" : "http://localhost:3001",
+        destination: "http://localhost:3001",
       },
     ];
   },
