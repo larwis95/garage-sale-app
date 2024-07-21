@@ -6,7 +6,7 @@ const nextConfig = {
       return [
         {
           source: `/api/graphql`,
-          destination: `http://${process.env.VERCEL_URL}/api/graphql`,
+          destination: `https://${process.env.VERCEL_URL}/api/graphql`,
         },
       ];
     }
