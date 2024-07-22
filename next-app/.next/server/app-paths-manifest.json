@@ -1,0 +1,5 @@
+{
+  "/page": "app/page.js",
+  "/api/graphql/route": "app/api/graphql/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
+}
