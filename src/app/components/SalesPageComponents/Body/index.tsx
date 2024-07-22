@@ -66,7 +66,7 @@ export default function SaleBody({ items }: ISalesBodyProps) {
           {items.map((item) => (
             <motion.div key={item._id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex w-full flex-col items-center justify-center rounded-lg border border-teal-500 bg-slate-600 align-top shadow-md shadow-black sm:w-full md:w-[50%] lg:w-[33%]">
               <div className="flex-grow-1 flex h-full min-w-full flex-col flex-wrap items-center justify-center gap-2 p-4">
-                <div className="flex w-full items-center justify-center text-nowrap border-b border-teal-500">
+                <div className="flex w-full items-center justify-center border-b border-teal-500">
                   <h2 className="text-2xl text-yellow-300">{item.name}</h2>
                 </div>
                 <div className="flex flex-col items-center justify-center">
