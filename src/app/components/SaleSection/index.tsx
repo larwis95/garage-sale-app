@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import SaleCard from "../Cards/Sales";
 import { useQuery } from "@apollo/client";
-import { GET_NEARBY_SALES } from "@/app/libs/auth/api/graphql/queries";
+import { GET_NEARBY_SALES, GET_USER_LOCATION } from "@/app/libs/auth/api/graphql/queries";
 import { AnimatePresence } from "framer-motion";
 import MapView from "@/app/components/Map/index";
 import { Sale } from "@/app/components/lottie";
@@ -29,6 +29,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
   const { data, loading } = useQuery(GET_NEARBY_SALES, {
     variables: { coordinates, radius: radius },
   });
+
 
   return (
     <div className="flex h-screen flex-col items-center justify-center">
@@ -60,7 +61,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
         ) : (
           <>
             <div className="w-full">
-              <MapView sales={data.nearBySales} zoom={radius} position={{ lat: coordinates.latitude, lng: coordinates.longitude }} />
+              <MapView sales={data.nearBySales} zoom={(radius*(-.18))+19} position={{ lat: coordinates.latitude, lng: coordinates.longitude }}/>
             </div>
             {data.nearBySales.map((sale: ISale) => (
               <AnimatePresence mode="wait" key={sale._id}>
@@ -73,3 +74,6 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
     </div>
   );
 }
+
+//No longer used
+//position={{ lat: coordinates.latitude, lng: coordinates.longitude }}

@@ -44,7 +44,7 @@ const defaultSales = [
 
 const Map = ({ sales, zoom, position }: IMapProps) => {
   //const position = props.position===undefined ? defaults.position : props.position;
-
+  console.log(position);
   if (!position) {
     return <p>Loading location...</p>;
   }
@@ -59,7 +59,7 @@ const Map = ({ sales, zoom, position }: IMapProps) => {
             <Marker key={idx} position={[val.geoLocation.coordinates[1], val.geoLocation.coordinates[0]]}>
               <Popup>
                 <h2>
-                  {val.title}
+                  <a href={`/sales/${val._id}`}>{val.title}</a>
                   <br />
                   {val.location}
                 </h2>
