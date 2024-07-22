@@ -1,15 +1,17 @@
 "use client";
 import { useQuery } from "@apollo/client";
 import { GET_SALE, GET_ME } from "@/app/libs/auth/api/graphql/queries";
-import { useState, useEffect, useContext } from "react";
 import ownerContext from "@/app/providers/Owner";
 import SaleHeader from "@/app/components/SalesPageComponents/Header";
 import SaleBody from "@/app/components/SalesPageComponents/Body";
+import { format } from "date-fns";
 
 interface ISale {
   _id: string;
   title: string;
   description: string;
+  startDate: string;
+  endDate: string;
   items: {
     id: string;
     name: string;
@@ -40,9 +42,9 @@ export default function Sale({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="min-w-screen flex min-h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden">
+    <div className="min-w-screen flex min-h-screen w-full flex-col items-center justify-center gap-4 overflow-x-hidden pt-24">
       <ownerContext.Provider value={{ isOwner, sale: params.id }}>
-        <SaleHeader title={sale.title} description={sale.description} />
+        <SaleHeader title={sale.title} description={sale.description} start={format(new Date(sale.startDate).toLocaleString([], { timeZone: "UTC" }), "MM/dd/yy")} end={format(new Date(sale.endDate).toLocaleString([], { timeZone: "UTC" }), "MM/dd/yy")} />
         <SaleBody items={sale.items} />
       </ownerContext.Provider>
     </div>
