@@ -32,7 +32,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
 
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center py-10">
       <Sale />
       <div className="w-full">
         <input
