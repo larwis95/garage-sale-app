@@ -7,8 +7,10 @@ interface ISalesCardHeaderProps {
 }
 
 export default function SalesHeader({ title, startDate, endDate }: ISalesCardHeaderProps) {
-  const formattedStartDate = format(new Date(Number(startDate)), "MM/dd/yy");
-  const formattedEndDate = format(new Date(Number(endDate)), "MM/dd/yy");
+  console.log("SalesHeader", title, typeof startDate, endDate);
+  console.log(startDate.toLocaleString());
+  const formattedStartDate = format(startDate, "MM/dd/yyyy");
+  const formattedEndDate = format(endDate, "MM/dd/yyyy");
 
   return (
     <div className="top-0 flex w-full flex-grow flex-col border-b border-red-600 p-2 text-left">
