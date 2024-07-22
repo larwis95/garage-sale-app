@@ -19,14 +19,17 @@ interface ISale {
 interface IMapValues {
   sales: ISale[];
   zoom?: number;
-  position: { lat: number; lng: number };
+  position?: { lat: number; lng: number };
 }
+
 
 export default function MapView(props: IMapValues) {
   const { sales, zoom, position } = props;
   const { data, loading } = useQuery(GET_USER_LOCATION);
   const userLocation = data?.userLocation || {};
-  const { lat, lng } = position;
+  //const { lat, lng } = position;
+
+  console.log(position);
 
   const Map = useMemo(
     () =>
