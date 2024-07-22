@@ -6,7 +6,6 @@ import { ADD_SALE, UPDATE_SALE, DELETE_SALE, DELETE_FAVORITE } from "../libs/aut
 import { format } from "date-fns";
 import Link from "next/link";
 import { Notification } from "../providers/Notification";
-import { motion } from "framer-motion";
 
 interface ISale {
   _id: string;
