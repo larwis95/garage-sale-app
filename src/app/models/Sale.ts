@@ -3,8 +3,8 @@ import SEED_API_KEY from "../../../seedsApi";
 
 export interface ISale extends mongoose.Document {
   title: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   location: string;
   geoLocation: { type: string; index?: string; coordinates: [number, number] };
   description: string;
@@ -13,8 +13,8 @@ export interface ISale extends mongoose.Document {
 
 const SaleSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  startDate: { type: Date },
-  endDate: { type: Date },
+  startDate: { type: String },
+  endDate: { type: String },
   location: { type: String },
   geoLocation: { type: Object, index: "2dsphere", coordinates: [Number] },
   description: { type: String },
