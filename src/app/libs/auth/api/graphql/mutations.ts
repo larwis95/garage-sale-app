@@ -101,8 +101,8 @@ export const DELETE_ITEM = gql`
 `;
 
 export const UPDATE_ITEM = gql`
-  mutation updateItem($_id: ID!, $name: String, $category: String, $description: String!, $condition: Int, $price: Floa!, $quantity: Int) {
-    updateItem(_id: $_id, name: $name, category: $category, description: $description, price: $price, quantity: $quantity) {
+  mutation updateItem($_id: ID!, $name: String, $description: String!, $price: Float!, $quantity: Int) {
+    updateItem(_id: $_id, name: $name, description: $description, price: $price, quantity: $quantity) {
       _id
       name
       description
@@ -114,8 +114,8 @@ export const UPDATE_ITEM = gql`
 `;
 
 export const ADD_FAVORITE = gql`
-  mutation addFavorite($_id: ID!) {
-    addFavorite(_id: $_id) {
+  mutation addFavorite($saleId: ID!) {
+    addFavorite(saleId: $saleId) {
       _id
       favorites {
         _id
@@ -127,8 +127,8 @@ export const ADD_FAVORITE = gql`
 `;
 
 export const DELETE_FAVORITE = gql`
-  mutation deleteFavorite($_id: ID!) {
-    deleteFavorite(saleId: $_id) {
+  mutation deleteFavorite($saleId: ID!) {
+    deleteFavorite(saleId: $saleId) {
       _id
       favorites {
         _id
