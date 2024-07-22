@@ -96,7 +96,7 @@ export default function Profile() {
     <div className="h-screen w-screen">
       <div className="py-20">
         <div className="flex flex-col">
-          <div className="mx-20 items-center justify-center text-center rounded-lg border border-teal-500 bg-slate-800 p-4">
+          <div className="mx-20 items-center justify-center text-center rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
             <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
             <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
           </div>
@@ -104,22 +104,22 @@ export default function Profile() {
         {/* Sales and Favorite container */}
         <div className="m-5 flex flex-col sm:flex-col md:flex-row">
           {/* Sales container */}
-          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4">
+          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
-              <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2">
+              <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
                 <h3 className="py-1 text-white">Title: {sale.title}</h3>
                 <p className="py-1 text-white">Description: {sale.description}</p>
                 <p className="py-1 text-white">Start-date: {format(new Date(Number(sale.startDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">End-date: {format(new Date(Number(sale.endDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">Location: {sale.location}</p>
-                <Link className="p-1 text-yellow-500 rounded-lg border-teal-500 border-solid border bg-slate-800 transition duration-500 hover:bg-slate-400 hover:text-black hover:font-bold hover:scale-110" href={`/sales/${sale._id}`}>View Sale</Link>
+                <Link className="p-1 text-yellow-500 rounded-lg border-teal-500 border-solid border bg-slate-800 transition duration-500 hover:bg-slate-400 hover:text-black hover:font-bold hover:scale-110 hover:shadow-lg hover:shadow-teal-500/50 shadow-md shadow-teal-500/50" href={`/sales/${sale._id}`}>View Sale</Link>
                 <div className="flex justify-end">
                   <button
-                    className="m-1 p-2 rounded bg-blue-500 transition duration-500 hover:bg-blue-700 hover:font-bold hover:scale-110"
+                    className="m-1 p-2 rounded bg-blue-500 transition duration-500 hover:bg-blue-700 hover:font-bold hover:scale-110 shadow-md shadow-slate-300/50"
                     onClick={() => setFormState({ saleId: sale._id, title: sale.title, description: sale.description, startDate: sale.startDate, endDate: sale.endDate, location: sale.location })}> Edit </button>
                   <button
-                    className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110"
+                    className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110 shadow-md shadow-slate-300/50"
                     onClick={async () => {
                       await deleteSale({ variables: { _id: sale._id } });
                     }}
@@ -131,16 +131,16 @@ export default function Profile() {
             ))}
           </div>
           {/* favorite container */}
-          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4">
+          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
-              <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2">
+              <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
                 <h3 className="py-1 text-white">Title: {favorite.title}</h3>
                 <p className="py-1 text-white">Description: {favorite.description}</p>
-                <Link className="p-1 text-yellow-500 rounded-lg border-teal-500 border-solid border bg-slate-800 transition duration-500 hover:bg-slate-400 hover:text-black hover:font-bold hover:scale-105" href={`/sales/${favorite._id}`}>View Favorite</Link>
+                <Link className="p-1 text-yellow-500 rounded-lg border-teal-500 border-solid border bg-slate-800 transition duration-500 hover:bg-slate-400 hover:text-black hover:font-bold hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50 shadow-md shadow-teal-500/50" href={`/sales/${favorite._id}`}>View Favorite</Link>
                 <div className="flex justify-end">
                 <button
-                  className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110"
+                  className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110  shadow-md shadow-slate-300/50"
                   onClick={async () => await deleteFavorite({ variables: { _id: favorite._id} })}>
                    Delete 
                 </button>
@@ -151,7 +151,7 @@ export default function Profile() {
         </div>
         {/* add edit sales container */}
         <div className="flex justify-center">
-          <div className="sm:w-11/12 md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4">
+          <div className="sm:w-11/12 md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
               <p className="m-2 p-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               {/* Title input */}
@@ -174,7 +174,7 @@ export default function Profile() {
               <input type="text" value={formState.location} onChange={(e) => setFormState({ ...formState, location: e.target.value })}
                 placeholder=" Location" required
                 className="py-2 m-2 border text-black rounded" />
-              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-500 hover:font-bold hover:scale-105">
+              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-500 hover:font-bold hover:scale-105 shadow-md shadow-slate-300/50 hover:shadow-lg hover:shadow-slate-300/50">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
             </form>
