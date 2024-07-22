@@ -21,7 +21,7 @@ body {
   background: linear-gradient(180deg, rgb(5, 5, 127) 0%, rgb(12, 12, 12) 100%);
   background-image: url(./images/map.jpg);
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 @layer utilities {
