@@ -28,7 +28,7 @@ export default function Sale({ params }: { params: { id: string } }) {
   const userSales = user?.sales || [];
   const userSale = userSales.filter((s: ISale) => s._id === params.id);
   const isOwner = userSale[0]?._id === sale._id;
-
+  
   if (loading) return <p>Loading...</p>;
 
   if (!sale._id) {

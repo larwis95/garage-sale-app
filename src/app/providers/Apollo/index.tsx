@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 function makeClient() {
   const httpLink = new HttpLink({
-    uri: "api/graphql",
+    uri: "/api/graphql",
   });
 
   const authLink = setContext((_, { headers }) => {
