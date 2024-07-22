@@ -35,23 +35,26 @@ export default function Login() {
     });
   };
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="text-center">
-        <h2 className="font-extrabold text-white">LOGIN</h2>
+    <div className="flex h-screen flex-col items-center">
+      <div className="container py-20">
+        <div className="text-center">
+          <h2 className="m-2 p-2 text-xl font-bold text-yellow-300">LOGIN</h2>
+        </div>
+
+        <form className="mx-auto max-w-sm rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50" onSubmit={handleFormSubmit}>
+          <div className="mb-5">
+            <label className="mb-2 block text-sm font-medium text-white dark:text-white">Email address</label>
+            <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} />
+          </div>
+          <div className="mb-5">
+            <label className="mb-2 block text-sm font-medium text-white dark:text-white">Password</label>
+            <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
+          </div>
+          <button className="w-full rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 shadow-md transition duration-500 hover:scale-105" type="submit">
+            Submit
+          </button>
+        </form>
       </div>
-      <form className="mx-auto max-w-sm rounded-lg border border-teal-500 bg-slate-600 p-4" onSubmit={handleFormSubmit}>
-        <div className="mb-5">
-          <label className="mb-2 block text-sm font-medium text-white dark:text-white">Email address</label>
-          <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="Your email" name="email" type="email" value={formState.email} onChange={handleChange} />
-        </div>
-        <div className="mb-5">
-          <label className="mb-2 block text-sm font-medium text-white dark:text-white">Password</label>
-          <input className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" placeholder="******" name="password" type="password" value={formState.password} onChange={handleChange} />
-        </div>
-        <button className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">
-          Submit
-        </button>
-      </form>
     </div>
   );
 }
