@@ -51,8 +51,8 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
             setRadius(sliderValue);
           }}
         />
-        <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {sliderValue} miles</p>
       </div>
+        <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {sliderValue} miles</p>
       <div className="flex flex-wrap items-center justify-center gap-4 p-4">
         {!data || (!data.nearBySales.length && !loading) ? (
           <>
