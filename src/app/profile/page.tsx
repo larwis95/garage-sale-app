@@ -76,7 +76,7 @@ export default function Profile() {
         const { data } = await updateSale({ variables: { ...formState } });
         if (data.errors) {
           throw new Error('Error updating sale!');
-        } 
+        }
         setNotification({ type: "success", message: "Sale update success!" })
       } else {
         const { data } = await addSale({ variables: {...formState} });
@@ -84,7 +84,7 @@ export default function Profile() {
           throw new Error('Error adding sale!');
         }
         setNotification({ type: "success", message: "Sale added success!" })
-      } 
+      }
       setFormState({ title: "", description: "", saleId: null });
     } catch(err: any) {
       setNotification({ type: "error", message: err.message })
@@ -111,7 +111,7 @@ export default function Profile() {
                 <p className="py-1 text-white">Start-date: {format(new Date(Number(sale.startDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">End-date: {format(new Date(Number(sale.endDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">Location: {sale.location}</p>
-                <Link className="" href={`/sales/${sale._id}`}>View Sale</Link>
+                <Link style={{ color: 'red', fontWeight: 'bold' }} className="" href={`/sales/${sale._id}`}>View Your Sale</Link>
                 <div className="flex justify-end">
                   <button
                     className="m-1 p-2 rounded bg-blue-500 hover:bg-blue-600"
