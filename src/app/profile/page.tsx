@@ -81,7 +81,7 @@ export default function Profile() {
         }
         setNotification({ type: "success", message: "Sale added success!" });
       }
-      setFormState({ title: "", description: "", saleId: null });
+      setFormState({ title: "", description: "", startDate: "", endDate:"", location: "", saleId: null });
     } catch (err: any) {
       setNotification({ type: "error", message: err.message });
     }
@@ -102,7 +102,7 @@ export default function Profile() {
           <div className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50 sm:w-full md:w-1/2">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
-              <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
+              <div key={sale._id} className="my-3 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
                 <h3 className="py-1 text-white">Title: {sale.title}</h3>
                 <p className="py-1 text-white">Description: {sale.description}</p>
                 <p className="py-1 text-white">Start-date: {format(new Date(sale.startDate).toLocaleString([], { timeZone: "UTC" }), "MM/dd/yy")}</p>
@@ -143,7 +143,7 @@ export default function Profile() {
           <div className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50 sm:w-full md:w-1/2">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
-              <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
+              <div key={favorite._id} className="my-3 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
                 <h3 className="py-1 text-white">Title: {favorite.title}</h3>
                 <p className="py-1 text-white">Description: {favorite.description}</p>
                 <Link className="rounded-lg border border-solid border-teal-500 bg-slate-800 p-1 text-yellow-500 shadow-md shadow-teal-500/50 transition duration-500 hover:scale-105 hover:bg-slate-400 hover:font-bold hover:text-black hover:shadow-lg hover:shadow-teal-500/50" href={`/sales/${favorite._id}`}>
