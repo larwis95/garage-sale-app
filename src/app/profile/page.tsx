@@ -111,7 +111,7 @@ export default function Profile() {
                 <p className="py-1 text-white">Start-date: {format(new Date(Number(sale.startDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">End-date: {format(new Date(Number(sale.endDate)), "MM/dd/yy")}</p>
                 <p className="py-1 text-white">Location: {sale.location}</p>
-                <Link style={{ color: 'red', fontWeight: 'bold' }} className="" href={`/sales/${sale._id}`}>View Sale</Link>
+                <Link style={{ color: 'red', fontWeight: 'bold' }} className="" href={`/sales/${sale._id}`}>View Your Sale</Link>
                 <div className="flex justify-end">
                   <button
                     className="m-1 p-2 rounded bg-blue-500 hover:bg-blue-600"
