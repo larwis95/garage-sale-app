@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_ME } from "../libs/auth/api/graphql/queries";
 import { ADD_SALE, UPDATE_SALE, DELETE_SALE, DELETE_FAVORITE } from "../libs/auth/api/graphql/mutations";
@@ -40,6 +40,7 @@ export default function Profile() {
   const userSales = data?.me?.sales || [];
   const [formState, setFormState] = useState<IFormState>({ saleId: null, title: "" });
   const { setNotification } = useContext(Notification);
+  const ref = useRef<HTMLFormElement>(null);
 
   const [addSale] = useMutation(ADD_SALE, {
     refetchQueries: [{ query: GET_ME }],
@@ -111,9 +112,12 @@ export default function Profile() {
                   View Sale
                 </Link>
                 <div className="flex justify-end">
-                  <button className="m-1 rounded bg-blue-500 p-2 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-blue-700 hover:font-bold" onClick={() => setFormState({ saleId: sale._id, title: sale.title, description: sale.description, startDate: sale.startDate, endDate: sale.endDate, location: sale.location })}>
-                    {" "}
-                    Edit{" "}
+                  <button className="m-1 rounded bg-blue-500 p-2 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-blue-700 hover:font-bold" 
+                  onClick={() => {setFormState({ saleId: sale._id, title: sale.title, description: sale.description, startDate: sale.startDate, endDate: sale.endDate, location: sale.location })
+                  ref?.current?.scrollIntoView({ behavior: 'smooth'})
+                  }}
+                  >
+                    Edit
                   </button>
                   <button
                     className="m-1 rounded bg-red-500 p-1 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-red-700 hover:font-bold"
@@ -170,7 +174,7 @@ export default function Profile() {
         {/* add edit sales container */}
         <div className="flex w-full flex-row justify-center p-4">
           <div className="w-full rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50 md:w-1/2 lg:w-1/2">
-            <form onSubmit={handleSubmit} className="m-2 flex flex-col">
+            <form ref={ref} onSubmit={handleSubmit} className="m-2 flex flex-col">
               <p className="m-2 p-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               {/* Title input */}
               <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
