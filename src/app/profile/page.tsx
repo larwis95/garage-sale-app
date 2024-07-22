@@ -76,7 +76,7 @@ export default function Profile() {
         const { data } = await updateSale({ variables: { ...formState } });
         if (data.errors) {
           throw new Error('Error updating sale!');
-        } 
+        }
         setNotification({ type: "success", message: "Sale update success!" })
       } else {
         const { data } = await addSale({ variables: {...formState} });
@@ -84,7 +84,7 @@ export default function Profile() {
           throw new Error('Error adding sale!');
         }
         setNotification({ type: "success", message: "Sale added success!" })
-      } 
+      }
       setFormState({ title: "", description: "", saleId: null });
     } catch(err: any) {
       setNotification({ type: "error", message: err.message })
