@@ -27,7 +27,7 @@ export default async function Home() {
 
       {/* <p className="text-3xl font-bold text-yellow-300">Your location:</p> */}
       <p>
-        {latitude} {longitude}
+        {/* {latitude} {longitude} */}
       </p>
     </main>
   );
