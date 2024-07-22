@@ -13,7 +13,7 @@ export default async function useUserLocation(): Promise<IUserLocation> {
   const client = getClient();
   const { data } = await client.query({
     query: GET_USER_LOCATION,
-    variables: { ip: "68.37.253.45" },
+    variables: { ip: ip === "::1" || "127.0.0.1" ? "68.37.253.45" : ip },
   });
   const { latitude, longitude } = data.userLocation;
   return { latitude, longitude };
