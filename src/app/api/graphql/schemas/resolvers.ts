@@ -117,7 +117,7 @@ const resolvers = {
     addSale: async (parent: any, args: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        const sale = await Sale.create({ ...args, user: user._id, startDate: new Date(args.startDate), endDate: new Date(args.endDate) });
+        const sale = await Sale.create({ ...args, user: user._id });
         if (!sale) throw SaleNotFound;
         await User.findOneAndUpdate({ _id: user._id }, { $addToSet: { sales: sale._id } }, { new: true });
         if (!user) throw UserNotFound;
