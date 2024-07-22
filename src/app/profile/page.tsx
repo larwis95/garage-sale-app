@@ -96,7 +96,7 @@ export default function Profile() {
     <div className="h-screen w-screen">
       <div className="py-20">
         <div className="flex flex-col">
-          <div className="mx-20 items-center justify-center text-center rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
+          <div className="mx-20 items-center justify-center text-center rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50">
             <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
             <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
           </div>
@@ -104,7 +104,7 @@ export default function Profile() {
         {/* Sales and Favorite container */}
         <div className="m-5 flex flex-col sm:flex-col md:flex-row">
           {/* Sales container */}
-          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
+          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Your Sales: </p>
             {userSales.map((sale: ISale) => (
               <div key={sale._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
@@ -121,7 +121,15 @@ export default function Profile() {
                   <button
                     className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110 shadow-md shadow-slate-300/50"
                     onClick={async () => {
-                      await deleteSale({ variables: { _id: sale._id } });
+                      try {
+                        const { data } = await deleteSale({ variables: { _id: sale._id } });
+                        if (data.errors) {
+                          throw new Error('Error deleting sale!');
+                        }
+                        setNotification({ type: "success", message: "Delete sale success!" })
+                      } catch(err: any) {
+                        setNotification({ type: "error", message: err.message })
+                      }
                     }}
                   >
                     Delete
@@ -131,7 +139,7 @@ export default function Profile() {
             ))}
           </div>
           {/* favorite container */}
-          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
+          <div className="m-1 max-h-fit min-h-fit sm:w-full md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50">
             <p className="m-2 p-2 text-xl font-bold text-yellow-300">Favorites: </p>
             {data.me.favorites.map((favorite: iFavorite) => (
               <div key={favorite._id} className="m-1 max-h-fit min-h-fit rounded-lg border border-teal-500 bg-slate-700 p-2 shadow-md shadow-teal-500/50">
@@ -141,7 +149,18 @@ export default function Profile() {
                 <div className="flex justify-end">
                 <button
                   className="m-1 rounded bg-red-500 p-1 transition duration-500 hover:bg-red-700 hover:font-bold hover:scale-110  shadow-md shadow-slate-300/50"
-                  onClick={async () => await deleteFavorite({ variables: { _id: favorite._id} })}>
+                  onClick={async () => {
+                    try {
+                      const { data } = await deleteFavorite({ variables: { _id: favorite._id} })
+                      if (data.errors) {
+                        throw new Error('Error deleting sale!');
+                      }
+                      setNotification({ type: "success", message: "Delete sale success!" })
+                    } catch(err: any) {
+                      setNotification({ type: "error", message: err.message })
+                    }
+                    }}
+                  >
                    Delete 
                 </button>
                 </div>
@@ -150,8 +169,8 @@ export default function Profile() {
           </div>
         </div>
         {/* add edit sales container */}
-        <div className="flex justify-center">
-          <div className="sm:w-11/12 md:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-xl shadow-teal-500/50">
+        <div className="flex flex-row justify-center p-4 w-full">
+          <div className="w-full md:w-1/2 lg:w-1/2 rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50">
             <form onSubmit={handleSubmit} className="flex flex-col m-2">
               <p className="m-2 p-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               {/* Title input */}
@@ -174,7 +193,8 @@ export default function Profile() {
               <input type="text" value={formState.location} onChange={(e) => setFormState({ ...formState, location: e.target.value })}
                 placeholder=" Location" required
                 className="py-2 m-2 border text-black rounded" />
-              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-500 hover:font-bold hover:scale-105 shadow-md shadow-slate-300/50 hover:shadow-lg hover:shadow-slate-300/50">
+              {/* button for submit */}
+              <button type="submit" className="m-2 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition duration-500 hover:font-bold hover:scale-105 shadow-md shadow-slate-300/50 hover:shadow-md hover:shadow-slate-300/50">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
               </button>
             </form>
