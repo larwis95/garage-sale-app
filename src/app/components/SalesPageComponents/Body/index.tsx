@@ -47,9 +47,9 @@ export default function SaleBody({ items }: ISalesBodyProps) {
   if (!items || items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 sm:min-w-full">
-        <div className="sm:min-w-screen flex flex-col items-center justify-center rounded-lg border border-yellow-300 bg-slate-600 align-top md:min-w-[50%] lg:min-w-[33%]">
+        <div className="sm:min-w-screen flex flex-col items-center justify-center rounded-lg border border-teal-500 bg-slate-600 align-top md:min-w-[50%] lg:min-w-[33%]">
           <div className="flex flex-col flex-wrap items-center justify-center gap-2 p-4">
-            <div className="flex w-full items-center justify-center border-b border-yellow-300 text-center sm:min-w-full">
+            <div className="flex w-full items-center justify-center border-b border-teal-500 text-center sm:min-w-full">
               <h2 className="text-4xl text-yellow-300">No items available</h2>
             </div>
           </div>
@@ -62,11 +62,11 @@ export default function SaleBody({ items }: ISalesBodyProps) {
       <AnimatePresence>{modalOpen && editItem && <EditItemModal ref={modalRef} setIsOpen={setModalOpen} item={editItem} />}</AnimatePresence>
       <div className="flex w-screen flex-col items-center justify-center gap-4">
         <h2 className="text-4xl text-yellow-300">Items</h2>
-        <div className="flex w-full flex-row flex-wrap items-center justify-center gap-2 rounded-lg border border-yellow-300 bg-teal-600 p-4 sm:flex-col md:flex-col lg:w-[50%] lg:flex-row">
+        <div className="flex w-full flex-row flex-wrap items-center justify-center gap-2 rounded-lg border border-teal-500 bg-slate-800 p-4 sm:flex-col md:flex-col lg:w-[50%] lg:flex-row">
           {items.map((item) => (
-            <motion.div key={item._id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex w-full flex-col items-center justify-center rounded-lg border border-yellow-300 bg-slate-600 align-top shadow-md shadow-black sm:w-full md:w-[50%] lg:w-[33%]">
+            <motion.div key={item._id} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }} className="flex w-full flex-col items-center justify-center rounded-lg border border-teal-500 bg-slate-600 align-top shadow-md shadow-black sm:w-full md:w-[50%] lg:w-[33%]">
               <div className="flex-grow-1 flex h-full min-w-full flex-col flex-wrap items-center justify-center gap-2 p-4">
-                <div className="flex w-full items-center justify-center text-nowrap border-b border-yellow-300">
+                <div className="flex w-full items-center justify-center text-nowrap border-b border-teal-500">
                   <h2 className="text-2xl text-yellow-300">{item.name}</h2>
                 </div>
                 <div className="flex flex-col items-center justify-center">
