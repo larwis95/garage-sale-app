@@ -160,11 +160,9 @@ const resolvers = {
       if (user) {
         const item = await Item.findOne({ _id: args._id });
         if (!item) throw ItemNotFound;
-        if (item.user.toString() === user._id.toString()) {
-          const updatedItem = await Item.updateOne({ _id: args._id }, { ...args }, { new: true });
-          return updatedItem;
-        }
-        throw AuthenticationError;
+
+        const updatedItem = await Item.updateOne({ _id: args._id }, { ...args }, { new: true });
+        return updatedItem;
       }
       throw AuthenticationError;
     },
