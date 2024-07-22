@@ -87,7 +87,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen">
       <div className="py-20">
         <div className="flex flex-col">
           <div className="mx-20 items-center justify-center rounded-lg border border-teal-500 bg-slate-800 p-4 text-center shadow-md shadow-teal-500/50">
@@ -173,15 +173,15 @@ export default function Profile() {
             <form onSubmit={handleSubmit} className="m-2 flex flex-col">
               <p className="m-2 p-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
               {/* Title input */}
-              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder=" Sale title" required className="m-2 rounded border py-2 text-black" />
+              <input type="text " value={formState.title} onChange={(e) => setFormState({ ...formState, title: e.target.value })} placeholder="Sale title" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
               {/* Description Input */}
-              <textarea value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder=" Sale description" required className="m-2 rounded border py-2 text-black" />
+              <textarea value={formState.description} onChange={(e) => setFormState({ ...formState, description: e.target.value })} placeholder="Sale description" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
               {/* Start date Input */}
-              <input type="date" value={formState.startDate} onChange={(e) => setFormState({ ...formState, startDate: e.target.value })} placeholder=" Start Date" required className="m-2 rounded border py-2 text-black" />
+              <input type="date" value={formState.startDate} onChange={(e) => setFormState({ ...formState, startDate: e.target.value })} placeholder="Start Date" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
               {/* End date Input */}
-              <input type="date" value={formState.endDate} onChange={(e) => setFormState({ ...formState, endDate: e.target.value })} placeholder=" End Date" required className="m-2 rounded border py-2 text-black" />
+              <input type="date" value={formState.endDate} onChange={(e) => setFormState({ ...formState, endDate: e.target.value })} placeholder=" End Date" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
               {/* Location Input */}
-              <input type="text" value={formState.location} onChange={(e) => setFormState({ ...formState, location: e.target.value })} placeholder=" Location" required className="m-2 rounded border py-2 text-black" />
+              <input type="text" value={formState.location} onChange={(e) => setFormState({ ...formState, location: e.target.value })} placeholder="Location" required className="my-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
               {/* button for submit */}
               <button type="submit" className="m-2 rounded bg-blue-500 py-2 text-white shadow-md shadow-slate-300/50 transition duration-500 hover:scale-105 hover:bg-blue-600 hover:font-bold hover:shadow-md hover:shadow-slate-300/50">
                 {formState.saleId ? "Update Sale" : "Add Sale"}
