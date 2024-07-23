@@ -6,6 +6,7 @@ import { ADD_SALE, UPDATE_SALE, DELETE_SALE, DELETE_FAVORITE } from "../libs/aut
 import { format } from "date-fns";
 import Link from "next/link";
 import { Notification } from "../providers/Notification";
+import Auth from "../libs/auth/frontend";
 
 interface ISale {
   _id: string;
@@ -59,8 +60,10 @@ export default function Profile() {
   });
 
   useEffect(() => {
-    console.log(formState);
-  }, [formState]);
+    if (!Auth.loggedIn()) {
+      window.location.replace("/login");
+    }
+  });
 
   if (loading) return <p className="h-screen py-20 text-center">Loading...</p>;
 
