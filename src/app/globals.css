@@ -50,6 +50,19 @@ body {
   }
 }
 
+.leaflet-control {
+  z-index: 0 !important;
+}
+
+.leaflet-pane {
+  z-index: 0 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 0 !important;
+}
+
 .hamburger-menu {
   animation: slide-in 0.5s linear;
   transform-origin: left center;
