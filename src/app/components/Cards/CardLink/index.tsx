@@ -8,7 +8,7 @@ interface ICardLink {
 
 export default function CardLink({ href, children }: ICardLink) {
   return (
-    <Link href={href} className="w-fit rounded-lg border-b border-white p-1 transition duration-500 hover:scale-105 hover:border-r hover:border-red-700 hover:text-red-500">
+    <Link href={href} className="w-fit rounded-lg border-b border-white p-1 transition duration-500 hover:scale-105 hover:bg-teal-400 hover:border-teal-500 hover:font-bold hover:text-black">
       {children}
     </Link>
   );
