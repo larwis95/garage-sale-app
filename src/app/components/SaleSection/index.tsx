@@ -52,7 +52,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
           }}
         />
       </div>
-        <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {sliderValue} miles</p>
+        <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {radius} miles</p>
       <div className="flex flex-col min-w-full items-center gap-4 p-4">
         {!data || (!data.nearBySales.length && !loading) ? (
           <>
