@@ -8,7 +8,7 @@ class AuthService {
 
   login(token: string) {
     localStorage.setItem("token", token);
-    window.location.assign("/");
+    window.location.assign("/profile");
   }
 
   logout() {
