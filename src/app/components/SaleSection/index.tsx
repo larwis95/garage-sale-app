@@ -53,21 +53,23 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
         />
       </div>
         <p className="text-center text-xl font-bold text-yellow-300">Search Radius: {sliderValue} miles</p>
-      <div className="flex flex-wrap items-center justify-center gap-4 p-4">
+      <div className="flex flex-col min-w-full items-center gap-4 p-4">
         {!data || (!data.nearBySales.length && !loading) ? (
           <>
             <p className="text-xl font-bold text-yellow-300">No sales found, try increasing the search area!</p>
           </>
         ) : (
           <>
-            <div className="w-full">
+            <div className="min-w-full">
               <MapView sales={data.nearBySales} zoom={(radius*(-.18))+19} position={{ lat: coordinates.latitude, lng: coordinates.longitude }}/>
             </div>
+            <div className="flex flex-wrap w-full">
             {data.nearBySales.map((sale: ISale) => (
               <AnimatePresence mode="wait" key={sale._id}>
                 <SaleCard title={sale.title} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} _id={sale._id} key={sale._id} />
               </AnimatePresence>
             ))}
+            </div>
           </>
         )}
       </div>
