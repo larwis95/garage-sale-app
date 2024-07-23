@@ -138,7 +138,13 @@ const resolvers = {
     updateSale: async (parent: any, args: any, context: BaseContext) => {
       const user = context.user;
       if (user) {
-        const updatedSale = Sale.findOneAndUpdate({ _id: args.saleId }, { ...args }, { new: true });
+        const apiKey = process.env.GOOGLE_API_KEY;
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${args.location}&key=${apiKey}`);
+        const data = await response.json();
+        console.log(data);
+        const { lat, lng } = data.results[0].geometry.location;
+        const geoLocation = { type: "Point", coordinates: [ lng, lat ]};
+        const updatedSale = Sale.findOneAndUpdate({ _id: args.saleId }, { ...args, geoLocation }, { new: true });
         if (!updatedSale) throw SaleNotFound;
         return updatedSale;
       }
