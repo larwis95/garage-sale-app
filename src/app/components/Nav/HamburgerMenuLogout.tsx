@@ -8,7 +8,7 @@ export default function HamburgerMenuLogout() {
   return (
     <>
       {loggedIn && (
-        <a onClick={Auth.logout} className="cursor-pointer rounded-lg border-b border-white text-white transition duration-500 hover:scale-110 hover:border-r hover:border-yellow-300 hover:text-yellow-300">
+        <a onClick={Auth.logout} className="pl-1 pb-1 cursor-pointer rounded-lg border-b border-white text-white transition duration-500 hover:scale-110 hover:border-r hover:border-yellow-300 hover:text-yellow-300">
           Logout
         </a>
       )}
