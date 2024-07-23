@@ -32,9 +32,9 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
 
 
   return (
-    <div className="flex h-screen flex-col items-center py-10">
+    <div className="w-full flex h-screen flex-col items-center py-10">
       <Sale />
-      <div className="w-full">
+      <div className="sm:w-full md:w-3/5">
         <input
           className="w-full"
           type="range"
@@ -60,9 +60,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
           </>
         ) : (
           <>
-            <div className="min-w-full">
-              <MapView sales={data.nearBySales} zoom={(radius*(-.18))+19} position={{ lat: coordinates.latitude, lng: coordinates.longitude }}/>
-            </div>
+            <MapView sales={data.nearBySales} zoom={16} position={{ lat: coordinates.latitude, lng: coordinates.longitude }}/>
             <div className="flex flex-wrap w-full">
             {data.nearBySales.map((sale: ISale) => (
               <AnimatePresence mode="wait" key={sale._id}>
