@@ -17,9 +17,6 @@ export default async function Home() {
         {/* <Sale />
         <Spotter /> */}
       </div>
-      {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">Searching for Treasure locally? Need that once in a lifetime find? Need a unique piece for your home or business? Sale Spotter is the app for you! We help you find Estate, Garage, Moving, and Yard Sales in your area. Looking for a way to make extra cash and make extra space around your home? List your sale with us to get location based exposure and bring the customers to you!</p>
-      </div> */}
       <div>
         <TreasureMap />
       </div>
@@ -29,6 +26,9 @@ export default async function Home() {
       <p>
         {/* {latitude} {longitude} */}
       </p>
+         {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-Monaco text-sm lg:flex">
+        <p className="text-lg font-bold text-yellow-300 text-center">The old adage one man’s trash is another man’s treasure still holds true today whether looking for a unique piece or making some cash instead of throwing things away. Garage or Yard, Moving or Estate list your sale to be starred and let your item find it’s mate! If it's Buying or Selling that you're looking to do Sale Spotter can help along the way, So start a search for a treasure or two and/or list your sale today!</p>
+      </div> */}
     </main>
   );
 }
