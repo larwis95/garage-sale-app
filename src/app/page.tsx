@@ -9,7 +9,7 @@ export default async function Home() {
   const sales = await useNearBySales({ latitude, longitude }, 16);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between py-20 px-5">
       <div className="text-center">
         <h1 className="text-6xl font-bold text-white">Sale Spotter</h1>
         <p className="pt-2.5 text-3xl font-bold text-yellow-300">Buy & Sell the Best Treasures Near You!</p>
