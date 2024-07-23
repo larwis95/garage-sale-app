@@ -26,9 +26,9 @@ export default async function Home() {
       <p>
         {/* {latitude} {longitude} */}
       </p>
-         {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-Monaco text-sm lg:flex">
-        <p className="text-lg font-bold text-yellow-300 text-center">The old adage one man’s trash is another man’s treasure still holds true today whether looking for a unique piece or making some cash instead of throwing things away. Garage or Yard, Moving or Estate list your sale to be starred and let your item find it’s mate! If it's Buying or Selling that you're looking to do Sale Spotter can help along the way, So start a search for a treasure or two and/or list your sale today!</p>
-      </div> */}
+         <div className="z-10 w-full max-w-5xl items-center justify-between font-Monaco text-sm lg:flex">
+        <p className="text-lg font-bold text-yellow-300 text-center">List your sale or go on a treasure hunt today whether looking for a unique piece or making some cash instead of throwing things away. Garage or Yard, Moving or Estate list your sale to be starred and let your item find it’s mate! If it`s Buying or Selling that you are looking to do Sale Spotter can help along the way, So start a search for a treasure or two and/or list your sale today!</p>
+      </div>
     </main>
   );
 }
