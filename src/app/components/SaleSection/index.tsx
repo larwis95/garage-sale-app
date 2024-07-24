@@ -61,7 +61,7 @@ export default function SaleSection({ coordinates }: ISaleSectionProps) {
         ) : (
           <>
             <MapView sales={data.nearBySales} zoom={16} position={{ lat: coordinates.latitude, lng: coordinates.longitude }}/>
-            <div className="sm:flex sm:flex-wrap md:grid md:grid-flow-col justify-center p-2 mb-32">
+            <div className="sm:flex sm:flex-wrap md:grid md:grid-cols-6 justify-center p-2 mb-32">
             {data.nearBySales.map((sale: ISale) => (
               <AnimatePresence mode="wait" key={sale._id}>
                 <SaleCard title={sale.title} startDate={sale.startDate} endDate={sale.endDate} location={sale.location} description={sale.description} _id={sale._id} key={sale._id} />
