@@ -26,7 +26,7 @@ export default async function Home() {
       <p>
         {/* {latitude} {longitude} */}
       </p>
-         <div className="z-10 w-full max-w-5xl items-center justify-between font-Monaco text-sm lg:flex">
+         <div className="w-full max-w-5xl items-center justify-between font-Monaco text-sm lg:flex mb-20">
         <p className="p-2 border shadow-sm shadow-teal-500 border-2 border-teal-500 rounded-lg bg-slate-800 bg-opacity-65 text-lg font-bold text-yellow-300 text-md text-center">List your sale or go on a treasure hunt today whether looking for a unique piece or making some cash instead of throwing things away. Garage or Yard, Moving or Estate list your sale to be starred and let your item find it’s mate! If it`s Buying or Selling that you are looking to do Sale Spotter can help along the way, So start a search for a treasure or two and/or list your sale today!</p>
       </div>
     </main>
