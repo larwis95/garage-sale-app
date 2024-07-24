@@ -13,8 +13,8 @@ export default function SalesHeader({ title, startDate, endDate }: ISalesCardHea
   const formattedEndDate = format(endDate, "MM/dd/yyyy");
 
   return (
-    <div className="flex flex-col border-b border-teal-500 p-2 ">
-      <h2 className="text-2xl font-bold">{title}</h2>
+    <div className="flex flex-col border-b border-teal-500 p-2 text-center">
+      <h2 className="text-2xl text-white font-bold">{title}</h2>
       <small className="text-sm text-gray-300">
         {formattedStartDate} - {formattedEndDate}
       </small>
