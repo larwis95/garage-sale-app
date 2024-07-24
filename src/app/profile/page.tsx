@@ -91,10 +91,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="h-screen">
+    <div className="h-screen w-screen">
       <div className="py-20">
         <div className="flex flex-col">
-          <div className="mx-20 items-center justify-center rounded-lg border border-teal-500 bg-slate-800 p-4 text-center shadow-md shadow-teal-500/50">
+          <div className="md:mx-20 items-center justify-center rounded-lg border border-teal-500 bg-slate-800 p-4 text-center shadow-md shadow-teal-500/50">
             <h2 className="text-3xl font-bold text-yellow-300">{data.me.username} profile</h2>
             <p className="py-2 text-center text-xl font-bold text-yellow-300">Your Email: {data.me.email}</p>
           </div>
@@ -115,7 +115,7 @@ export default function Profile() {
                   View Sale
                 </Link>
                 <div className="flex justify-end">
-                  <button className="m-1 rounded bg-blue-500 p-2 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-blue-700 hover:font-bold" 
+                  <button className="m-1 rounded bg-blue-500 p-2 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-blue-700 hover:font-bold"
                   onClick={() => {setFormState({ saleId: sale._id, title: sale.title, description: sale.description, startDate: sale.startDate, endDate: sale.endDate, location: sale.location })
                   ref?.current?.scrollIntoView({ behavior: 'smooth'})
                   }}
@@ -175,7 +175,7 @@ export default function Profile() {
           </div>
         </div>
         {/* add edit sales container */}
-        <div className="flex w-full flex-row justify-center p-4">
+        <div className="flex w-full flex-row justify-center p-4 mb-20">
           <div className="w-full rounded-lg border border-teal-500 bg-slate-800 p-4 shadow-md shadow-teal-500/50 md:w-1/2 lg:w-1/2">
             <form ref={ref} onSubmit={handleSubmit} className="m-2 flex flex-col">
               <p className="m-2 p-2 text-xl font-bold text-yellow-300">{formState.saleId ? "Edit Sale:" : "Add Sale:"} </p>
