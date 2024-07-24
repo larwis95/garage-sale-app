@@ -7,7 +7,7 @@ import treasureMap from "@/app/images/treasureMap.json";
 
 export function Treasure() {
   return (
-    <div className="lottie-icon">
+    <div className="lottie-icon w-20 h-20">
       <Lottie loop={true} animationData={treasure}></Lottie>
     </div>
   );
