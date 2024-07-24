@@ -1,6 +1,8 @@
 # Sale Spotter
 
+
 ##  Description
+A location based app that allows buyers and sellers to post and/or search for garage, yard, estate and moving sales. Ability to create an account to post and/or favorite sales as well as list individual items, prices, etc.
 
 
 
