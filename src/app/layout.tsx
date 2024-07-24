@@ -6,6 +6,7 @@ import ApolloWrapper from "@/app/providers/Apollo";
 import NotificationProvider from "@/app/providers/Notification";
 import NotificationBox from "./components/Notifications";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default async function RootLayout({
             <div>{children}</div>
             <NotificationBox />
           </NotificationProvider>
+          <Footer />
         </ApolloWrapper>
       </body>
     </html>
