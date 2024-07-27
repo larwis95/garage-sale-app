@@ -157,9 +157,7 @@ export default function Profile() {
                     className="m-1 rounded bg-red-500 p-1 shadow-md shadow-slate-300/50 transition duration-500 hover:scale-110 hover:bg-red-700 hover:font-bold"
                     onClick={async () => {
                       try {
-
                         const { data } = await deleteFavorite({ variables: { saleId: favorite._id } });
-
                         if (data.errors) {
                           throw new Error("Error deleting sale!");
                         }
