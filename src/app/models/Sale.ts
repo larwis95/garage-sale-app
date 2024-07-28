@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import SEED_API_KEY from "../../../seedsApi";
+
 
 export interface ISale extends mongoose.Document {
   title: string;
@@ -28,7 +28,7 @@ const SaleSchema = new mongoose.Schema({
 
 SaleSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("location")) {
-    const apiKey = process.env.GOOGLE_API_KEY || SEED_API_KEY;
+    const apiKey = process.env.GOOGLE_API_KEY
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.location}&key=${apiKey}`);
     const data = await response.json();
     if (!data || data.status === "ZERO_RESULTS") {
